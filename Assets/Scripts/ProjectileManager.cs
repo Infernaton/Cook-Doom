@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class ProjectileManager : MonoBehaviour
     {
         //Maybe Rewrite this to call for Last Direction
         PlayerManager p = transform.parent.GetComponent<PlayerManager>();
+        Vector2 mouse = Mouse.current.position.value;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mouse.x, mouse.y, Camera.main.nearClipPlane));
+
+        //Set the gameworld origine as player position
+        Debug.Log(mousePosition - p.gameObject.transform.position);
+
         Vector3 force = new Vector3(m_Speed * p.lastDirection.x, 0, m_Speed * p.lastDirection.y);
         GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
