@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemieManager : MonoBehaviour
 {
     private Rigidbody _rigidBody;
+    private TargetManager _targetManager;
 
     [SerializeField]
     private float m_HealtBar;
@@ -13,11 +14,12 @@ public class EnemieManager : MonoBehaviour
     private float m_MoveSpeed;
 
     [SerializeField]
-    private GameObject m_Target;
+    private Target m_Target;
     // Start is called before the first frame update
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _targetManager = TargetManager.Instance;
     }
 
     private void FixedUpdate()
@@ -28,6 +30,6 @@ public class EnemieManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(m_Target.transform);
+        transform.LookAt(_targetManager.GetGameObject(m_Target).transform);
     }
 }
