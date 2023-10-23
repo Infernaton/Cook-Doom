@@ -7,7 +7,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject point;
 
-    public static TargetManager Instance; // A static reference to the GameManager instance
+    public static TargetManager Instance; // A static reference to the TargetManager instance
 
     void Awake()
     {

@@ -26,6 +26,12 @@ public class ProjectileManager : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 
+    private void Update()
+    {
+        if (transform.position.y < -1)
+            Destroy(gameObject);
+    }
+
     private void OnCollisionEnter(Collision c)
     {
         //Check the layer value binary if the same as the layer mask
@@ -34,7 +40,6 @@ public class ProjectileManager : MonoBehaviour
 
         if (c.gameObject.GetComponent<EnemyManager>())
         {
-            print("Hit Ennemy");
             EnemyManager enemy = c.gameObject.GetComponent<EnemyManager>();
             enemy.LoseHP(m_Damage);
         }

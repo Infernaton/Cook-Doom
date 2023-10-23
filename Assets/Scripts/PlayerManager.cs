@@ -22,8 +22,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private float m_Rate;
 
-    private float horizontalSpeed = 2.0F;
-
     private void Awake()
     {
         this._rigidBody = GetComponent<Rigidbody>();

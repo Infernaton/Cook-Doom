@@ -147,5 +147,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 3
-  m_MoveSpeed: 10
+  m_MoveSpeed: 15
   m_Target: 0
