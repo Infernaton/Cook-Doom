@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemieManager : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     private Rigidbody _rigidBody;
-    private TargetManager _targetManager;
 
     [SerializeField]
-    private float m_HealtBar;
+    private float m_Health;
 
     [SerializeField]
     private float m_MoveSpeed;
@@ -19,7 +18,6 @@ public class EnemieManager : MonoBehaviour
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _targetManager = TargetManager.Instance;
     }
 
     private void FixedUpdate()
@@ -30,6 +28,16 @@ public class EnemieManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(_targetManager.GetGameObject(m_Target).transform);
+        transform.LookAt(TargetManager.Instance.GetGameObject(m_Target).transform);
+    }
+
+    public void LoseHP(float loosedHealth)
+    {
+        m_Health -= loosedHealth;
+
+        if (m_Health <= 0) 
+        {
+            Destroy(gameObject);
+        }
     }
 }

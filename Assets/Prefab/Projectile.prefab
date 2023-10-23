@@ -147,7 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 50
+  m_Damage: 1
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 8
-  m_Player: {fileID: 0}
+  m_EnemyPrefab: {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}

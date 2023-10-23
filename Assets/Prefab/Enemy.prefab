@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5139682145317653656}
   - component: {fileID: 7914553042574875113}
   - component: {fileID: 8912309973008500242}
-  - component: {fileID: 4771360988120906456}
   - component: {fileID: -889742484848371092}
+  - component: {fileID: 9079131759421215829}
   m_Layer: 0
-  m_Name: Enemie
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,21 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4771360988120906456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7591468653377331356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef015196f743a8499f128afc954f7b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HealtBar: 1
-  m_MoveSpeed: 5
-  m_Target: {fileID: 0}
 --- !u!54 &-889742484848371092
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,3 +134,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9079131759421215829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7591468653377331356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef015196f743a8499f128afc954f7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Health: 3
+  m_MoveSpeed: 10
+  m_Target: 0
