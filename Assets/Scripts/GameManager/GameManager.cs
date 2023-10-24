@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Utils;
 
 public class GameManager : MonoBehaviour
 {
+    public bool IsGameActive { get; private set; }
+
+    private float _startTime;
+
     [SerializeField]
     private GameObject m_Player;
 
@@ -16,6 +21,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private float m_ProtectionRadius;
+
+    [SerializeField] private TMP_Text m_Health;
+    [SerializeField] private TMP_Text m_Time;
+    [SerializeField] private TMP_Text m_Score;
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
@@ -35,13 +44,32 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IsGameActive = true;
+        _startTime = Time.time;
         ActivateSpawner(m_ActivateSpawner);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (IsGameActive)
+        {
+            float time = Time.time - _startTime;
+            UpdateTime(time);
+        }
+        UpdateHealth();
+    }
+
+    void UpdateHealth()
+    {
+        m_Health.text = string.Format("Health: {0:0}", m_Player.GetComponent<PlayerManager>().GetHealth());
+    }
+
+    private void UpdateTime(float time)
+    {
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        m_Time.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void ActivateSpawner(bool activate = true)
@@ -56,5 +84,10 @@ public class GameManager : MonoBehaviour
         Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
         if (Vector3.Distance(m_Player.transform.position, finalPos) < m_ProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
         return finalPos;
+    }
+
+    public void EndGame()
+    {
+        IsGameActive = false;
     }
 }

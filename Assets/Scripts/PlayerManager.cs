@@ -7,10 +7,10 @@ public class PlayerManager : MonoBehaviour
 {
 
     private Vector2 _movement;
-    private bool _isAlive = true;
     private Rigidbody _rigidBody;
     private float _lastSpawn;
     private float _startInvincibility;
+    private GameManager gm;
 
     private bool _isShooting = false;
 
@@ -25,9 +25,19 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private float m_FireRate;
 
+    public float GetHealth()
+    {
+        return m_Health;
+    }
+
     private void Awake()
     {
         this._rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        gm = GameManager.Instance;
     }
 
     private void FixedUpdate()
@@ -38,16 +48,15 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         if (_startInvincibility >= 0f) _startInvincibility -= Time.deltaTime;
-        if (_isShooting && (Time.time - _lastSpawn >= 1f / m_FireRate))
-        {
-            Spawn();
-        }
+        if (_isShooting && (Time.time - _lastSpawn >= 1f / m_FireRate)) SpawnProjectile();
+
         UpdateLookAt();
     }
 
-    private void Spawn()
+    private void SpawnProjectile()
     {
-        Instantiate(m_Prefab, transform.position, Quaternion.identity);
+        GameObject proj = Instantiate(m_Prefab, transform.position, Quaternion.identity);
+        //proj.transform.SetParent(transform);
         _lastSpawn = Time.time;
     }
 
@@ -78,7 +87,7 @@ public class PlayerManager : MonoBehaviour
     #region Input System
     public void OnMove(InputValue value)
     {
-        if (_isAlive)
+        if (gm.IsGameActive)
             _movement = value.Get<Vector2>();
         else
             _movement = Vector2.zero;
@@ -86,10 +95,7 @@ public class PlayerManager : MonoBehaviour
 
     public void OnShoot()
     {
-        if (_isAlive)
-            _isShooting = !_isShooting;
-        else
-            _isShooting = false;
+        _isShooting = !_isShooting && gm.IsGameActive;
     }
     #endregion
 
@@ -100,7 +106,7 @@ public class PlayerManager : MonoBehaviour
 
         if (m_Health <= 0)
         {
-            _isAlive = false;
+            GameManager.Instance.EndGame();
         }
     }
 }
