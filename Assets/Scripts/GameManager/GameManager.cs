@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject m_Player;
+
     [SerializeField]
     private GameObject m_Spawner;
 
     [SerializeField]
     private bool m_ActivateSpawner = true;
+
+    [SerializeField]
+    private float m_ProtectionRadius;
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
@@ -44,13 +51,10 @@ public class GameManager : MonoBehaviour
         e.enabled = m_ActivateSpawner;
     }
 
-    public Vector3 GetRandomCoordInArea(Vector3 center, Vector3 scale)
+    public Vector3 ProtectedSpawnMob(Vector3 pos, float spawnRange)
     {
-        Bounds b = new Bounds(center, scale);
-        return new Vector3(
-            Random.Range(b.min.x, b.max.x),
-            Random.Range(b.min.y, b.max.y),
-            Random.Range(b.min.z, b.max.z)
-        );
+        Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
+        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_ProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
+        return finalPos;
     }
 }

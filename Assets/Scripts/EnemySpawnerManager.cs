@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class EnemySpawnerManager : MonoBehaviour
 {
@@ -8,10 +9,12 @@ public class EnemySpawnerManager : MonoBehaviour
     private float m_SpawnRate;
 
     [SerializeField]
+    private float m_SpawnRange;
+
+    [SerializeField]
     private GameObject[] m_EnemyType;
 
     /*
-     * Set Gizmo
      * Protection radius from the player
      */
 
@@ -29,6 +32,11 @@ public class EnemySpawnerManager : MonoBehaviour
     {
         GameObject instance = Instantiate(m_EnemyType[0], transform.position, Quaternion.identity);
         instance.transform.SetParent(transform, true);
-        instance.transform.localPosition = GameManager.Instance.GetRandomCoordInArea(transform.position, new Vector3(20, 1, 20));
+        instance.transform.localPosition = GameManager.Instance.ProtectedSpawnMob(transform.position, m_SpawnRange);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(transform.position, new Vector3(m_SpawnRange, 0, m_SpawnRange));
     }
 }

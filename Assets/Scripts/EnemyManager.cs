@@ -14,7 +14,9 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField]
     private Target m_Target;
-    // Start is called before the first frame update
+
+    public float damage;
+
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();

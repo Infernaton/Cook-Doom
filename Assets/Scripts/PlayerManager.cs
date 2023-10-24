@@ -10,17 +10,20 @@ public class PlayerManager : MonoBehaviour
     private bool _isAlive = true;
     private Rigidbody _rigidBody;
     private float _lastSpawn;
+    private float _startInvincibility;
 
     private bool _isShooting = false;
 
     [SerializeField]
     private float m_MoveSpeed;
+    [SerializeField] private float m_Health;
+    [SerializeField] private float m_InvincibiltyTime;
 
     [SerializeField]
     private GameObject m_Prefab;
 
     [SerializeField]
-    private float m_Rate;
+    private float m_FireRate;
 
     private void Awake()
     {
@@ -34,11 +37,11 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        if (_isShooting && (Time.time - _lastSpawn >= 1f / m_Rate))
+        if (_startInvincibility >= 0f) _startInvincibility -= Time.deltaTime;
+        if (_isShooting && (Time.time - _lastSpawn >= 1f / m_FireRate))
         {
             Spawn();
         }
-
         UpdateLookAt();
     }
 
@@ -64,6 +67,15 @@ public class PlayerManager : MonoBehaviour
         transform.LookAt(hit.point);
     }
 
+    private void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.GetComponent<EnemyManager>() && _startInvincibility <= 0f)
+        {
+            LoseHP(c.gameObject.GetComponent<EnemyManager>().damage);
+        }
+    }
+
+    #region Input System
     public void OnMove(InputValue value)
     {
         if (_isAlive)
@@ -74,6 +86,21 @@ public class PlayerManager : MonoBehaviour
 
     public void OnShoot()
     {
-        _isShooting = !_isShooting;
+        if (_isAlive)
+            _isShooting = !_isShooting;
+        else
+            _isShooting = false;
+    }
+    #endregion
+
+    public void LoseHP(float loosedHealth)
+    {
+        m_Health -= loosedHealth;
+        _startInvincibility = m_InvincibiltyTime;
+
+        if (m_Health <= 0)
+        {
+            _isAlive = false;
+        }
     }
 }
