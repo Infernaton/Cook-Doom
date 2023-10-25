@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     private Rigidbody _rigidBody;
+    private GameObject _target;
 
     [SerializeField]
     private float m_Health;
@@ -20,17 +21,21 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _target = TargetManager.Instance.GetGameObject(m_Target);
     }
 
     private void FixedUpdate()
     {
-        transform.position += transform.forward * m_MoveSpeed * Time.deltaTime;
+        if (GameManager.Instance.IsGameActive)
+        {
+            transform.position += transform.forward * m_MoveSpeed * Time.deltaTime;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(TargetManager.Instance.GetGameObject(m_Target).transform);
+        transform.LookAt(_target.transform);
     }
 
     public void LoseHP(float loosedHealth)

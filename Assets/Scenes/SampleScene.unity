@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53e3019c746d2554d9235af4e142e7ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 10
+  m_MoveSpeed: 12
   m_Health: 5
   m_InvincibiltyTime: 2
   m_Prefab: {fileID: 5535911559796985636, guid: df383c40895fdfc4a85a8a80ed91bc3a, type: 3}
@@ -438,8 +438,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6567d975ef7c13e4d86170b1c7a546e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnRate: 0.5
-  m_SpawnRange: 20
+  m_SpawnRate: 0.75
+  m_SpawnRange: 25
   m_EnemyType:
   - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
 --- !u!4 &484953127
@@ -1090,8 +1090,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 120413292}
   m_Spawner: {fileID: 484953125}
-  m_ActivateSpawner: 0
-  m_ProtectionRadius: 5
+  m_ActivateSpawner: 1
+  m_ProtectionRadius: 10
   m_Health: {fileID: 847813961}
   m_Time: {fileID: 1139248011}
   m_Score: {fileID: 1228468495}
