@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_Spawner;
 
     [SerializeField]
-    private bool m_ActivateSpawner = true;
+    private bool m_ActivateSpawner;
 
     [SerializeField]
     private float m_ProtectionRadius;
@@ -27,8 +27,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text m_Time;
     [SerializeField] private TMP_Text m_Score;
 
-    public static GameManager Instance; // A static reference to the GameManager instance
+    [SerializeField] private GameObject m_SpawnerObject;
+    [SerializeField] private Wave[] m_WaveList;
+    private int _currentWaveIndex;
 
+    public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -47,8 +50,16 @@ public class GameManager : MonoBehaviour
     {
         IsGameActive = true;
         _score = 0;
+        _currentWaveIndex = 0;
         _startTime = Time.time;
-        ActivateSpawner(m_ActivateSpawner);
+        Invoke("StartWave", 3f);
+    }
+    public void ActivateSpawner(bool activate = true)
+    {
+        EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
+        m_ActivateSpawner = activate;
+        e.SetSpawnRate(m_WaveList[_currentWaveIndex].SpawnRate);
+        e.enabled = activate;
     }
 
     // Update is called once per frame
@@ -82,18 +93,32 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void ActivateSpawner(bool activate = true)
-    {
-        EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
-        m_ActivateSpawner = activate;
-        e.enabled = m_ActivateSpawner;
-    }
-
     public Vector3 ProtectedSpawnMob(Vector3 pos, float spawnRange)
     {
         Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
         if (Vector3.Distance(m_Player.transform.position, finalPos) < m_ProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
         return finalPos;
+    }
+
+    public GameObject[] GetCurrentWaveMobList()
+    {
+        return m_WaveList[_currentWaveIndex].MobList;
+    }
+
+    public void StartWave()
+    {
+        Debug.Log("Start Wave " + _currentWaveIndex);
+        ActivateSpawner();
+        Invoke(nameof(StopWave), m_WaveList[_currentWaveIndex].WaveDuration);
+    }
+
+    private void StopWave()
+    {
+        ActivateSpawner(false);
+        Debug.Log("Stop Wave " + _currentWaveIndex);
+        _currentWaveIndex++;
+        if (m_WaveList.Length < _currentWaveIndex + 1) return;
+        Invoke(nameof(StartWave), 5f);
     }
 
     public void IncrementScore()

@@ -433,16 +433,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484953125}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6567d975ef7c13e4d86170b1c7a546e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnRate: 0.5
   m_SpawnRange: 25
-  m_EnemyType:
-  - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
-  - {fileID: 2314919286905513727, guid: dbac06b8dc4a28f40aa35062a90d977f, type: 3}
 --- !u!4 &484953127
 Transform:
   m_ObjectHideFlags: 0
@@ -1096,6 +1092,12 @@ MonoBehaviour:
   m_Health: {fileID: 847813961}
   m_Time: {fileID: 1139248011}
   m_Score: {fileID: 1228468495}
+  m_SpawnerObject: {fileID: 484953125}
+  m_WaveList:
+  - {fileID: 11400000, guid: 4c4113fad2746eb4a9c9778ee651a5f8, type: 2}
+  - {fileID: 11400000, guid: a337794481bb8f642acb11124631a02d, type: 2}
+  - {fileID: 11400000, guid: 301c47fa9b3005d4093cb995a1a51e90, type: 2}
+  - {fileID: 11400000, guid: 0c0ce7f08e6477447af30b896059d376, type: 2}
 --- !u!1 &903630065
 GameObject:
   m_ObjectHideFlags: 0

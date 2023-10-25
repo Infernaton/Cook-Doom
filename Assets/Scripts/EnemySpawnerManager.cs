@@ -5,22 +5,19 @@ using Utils;
 
 public class EnemySpawnerManager : MonoBehaviour
 {
-    [SerializeField]
-    private float m_SpawnRate;
+    private float _spawnRate;
 
     [SerializeField]
     private float m_SpawnRange;
 
-    [SerializeField]
-    private GameObject[] m_EnemyType;
-
-    /*
-     * Protection radius from the player
-     */
+    public void SetSpawnRate(float spawnRate)
+    {
+        _spawnRate = spawnRate;
+    }
 
     private void OnEnable()
     {
-        InvokeRepeating("Spawn", m_SpawnRate, m_SpawnRate);
+        InvokeRepeating("Spawn", _spawnRate, _spawnRate);
     }
 
     private void OnDisable()
@@ -30,8 +27,9 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void Spawn()
     {
-        int indexEnenmy = Random.Range(0, m_EnemyType.Length);
-        GameObject instance = Instantiate(m_EnemyType[indexEnenmy], transform);
+        GameObject[] enemyList = GameManager.Instance.GetCurrentWaveMobList();
+        int indexEnenmy = Random.Range(0, enemyList.Length);
+        GameObject instance = Instantiate(enemyList[indexEnenmy], transform);
         instance.transform.localPosition = GameManager.Instance.ProtectedSpawnMob(transform.position, m_SpawnRange);
     }
     private void OnDrawGizmosSelected()
