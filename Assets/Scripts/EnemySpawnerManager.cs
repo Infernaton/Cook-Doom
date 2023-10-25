@@ -30,8 +30,8 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject instance = Instantiate(m_EnemyType[0], transform.position, Quaternion.identity);
-        instance.transform.SetParent(transform, true);
+        int indexEnenmy = Random.Range(0, m_EnemyType.Length);
+        GameObject instance = Instantiate(m_EnemyType[indexEnenmy], transform);
         instance.transform.localPosition = GameManager.Instance.ProtectedSpawnMob(transform.position, m_SpawnRange);
     }
     private void OnDrawGizmosSelected()

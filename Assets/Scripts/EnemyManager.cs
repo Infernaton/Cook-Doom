@@ -44,6 +44,7 @@ public class EnemyManager : MonoBehaviour
 
         if (m_Health <= 0) 
         {
+            GameManager.Instance.IncrementScore();
             Destroy(gameObject);
         }
     }

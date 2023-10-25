@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool IsGameActive { get; private set; }
 
     private float _startTime;
+    private float _score;
 
     [SerializeField]
     private GameObject m_Player;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IsGameActive = true;
+        _score = 0;
         _startTime = Time.time;
         ActivateSpawner(m_ActivateSpawner);
     }
@@ -56,13 +58,20 @@ public class GameManager : MonoBehaviour
         {
             float time = Time.time - _startTime;
             UpdateTime(time);
+            UpdateScore();
         }
         UpdateHealth();
     }
 
+    #region Update UI
     void UpdateHealth()
     {
         m_Health.text = string.Format("Health: {0:0}", m_Player.GetComponent<PlayerManager>().GetHealth());
+    }
+
+    void UpdateScore()
+    {
+        m_Score.text = string.Format("Score: {0:0}", _score);
     }
 
     private void UpdateTime(float time)
@@ -71,6 +80,7 @@ public class GameManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(time % 60);
         m_Time.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+    #endregion
 
     public void ActivateSpawner(bool activate = true)
     {
@@ -86,8 +96,14 @@ public class GameManager : MonoBehaviour
         return finalPos;
     }
 
+    public void IncrementScore()
+    {
+        _score++;
+    }
+
     public void EndGame()
     {
         IsGameActive = false;
+        ActivateSpawner(false);
     }
 }

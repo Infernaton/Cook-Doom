@@ -106,6 +106,7 @@ public class PlayerManager : MonoBehaviour
 
         if (m_Health <= 0)
         {
+            _isShooting = false;
             GameManager.Instance.EndGame();
         }
     }
