@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Entity;
 using Utils;
 
 public class EnemyManager : LifeFormManager
@@ -15,10 +14,10 @@ public class EnemyManager : LifeFormManager
     private Target m_Target;
 
     [SerializeField]
-    private float GoldReward;
+    private float m_GoldReward;
 
     [SerializeField]
-    private float Damage;
+    private float m_Damage;
 
     void Awake()
     {
@@ -45,9 +44,15 @@ public class EnemyManager : LifeFormManager
     }
     private void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.GetInstanceID() == _target.GetInstanceID())
+        if (Compare.GameObjects(c.gameObject, _target))
         {
-            c.gameObject.GetComponent<LifeFormManager>().LoseHP(Damage);
+            c.gameObject.GetComponent<LifeFormManager>().LoseHP(m_Damage);
         }
+    }
+
+    public void OnDeath()
+    {
+        Destroy(gameObject);
+        GameManager.Instance.IncrementScore(m_GoldReward);
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utils;
+using Entity;
 
 public class PlayerManager : LifeFormManager
 {
@@ -41,11 +39,6 @@ public class PlayerManager : LifeFormManager
     private void FixedUpdate()
     {
         _rigidBody.velocity = new Vector3(m_MoveSpeed * _movement.x, _rigidBody.velocity.y, m_MoveSpeed * _movement.y);
-        if (m_Health <= 0 && GameManager.Instance.IsGameActive)
-        {
-            _isShooting = false;
-            GameManager.Instance.EndGame();
-        }
     }
 
     void Update()
@@ -76,6 +69,12 @@ public class PlayerManager : LifeFormManager
         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
 
         transform.LookAt(hit.point);
+    }
+
+    public void OnDeath()
+    {
+        _isShooting = false;
+        GameManager.Instance.EndGame();
     }
 
     #region Input System

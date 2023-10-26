@@ -148,9 +148,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 1
   m_InvincibiltyTime: 0
-  _startInvincibility: 0
-  m_DestroyWhenDie: 1
+  m_OnDying:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9079131759421215829}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: OnDeath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_MoveSpeed: 15
   m_Target: 0
-  GoldReward: 1
-  Damage: 1
+  m_GoldReward: 1
+  m_Damage: 1
