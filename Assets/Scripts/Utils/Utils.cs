@@ -21,12 +21,23 @@ namespace Utils
         }
     }
 
-    public class WaitAction
+    public class LifeFormManager : MonoBehaviour
     {
-        public static IEnumerator ForSeconds(float seconds, Action callback)
+        public float m_Health;
+        public float m_InvincibiltyTime;
+        public float _startInvincibility;
+        public bool m_DestroyWhenDie = true;
+
+        protected void _updateLifeForm()
         {
-            yield return new WaitForSeconds(seconds);
-            callback();
+            if (_startInvincibility > 0f) _startInvincibility -= Time.deltaTime;
+            if (m_Health <= 0 && m_DestroyWhenDie) Destroy(gameObject);
+        }
+        public void LoseHP(float damage)
+        {
+            if (_startInvincibility > 0f) return;
+            m_Health -= damage;
+            _startInvincibility = m_InvincibiltyTime;
         }
     }
 }

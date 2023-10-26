@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: Tank Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7914553042574875113, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -59,6 +59,10 @@ PrefabInstance:
     - target: {fileID: 9079131759421215829, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
       propertyPath: m_Health
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9079131759421215829, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
+      propertyPath: GoldReward
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9079131759421215829, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
       propertyPath: m_MoveSpeed

@@ -2,22 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : LifeFormManager
 {
 
     private Vector2 _movement;
     private Rigidbody _rigidBody;
     private float _lastSpawn;
-    private float _startInvincibility;
     private GameManager gm;
 
     private bool _isShooting = false;
 
     [SerializeField]
     private float m_MoveSpeed;
-    [SerializeField] private float m_Health;
-    [SerializeField] private float m_InvincibiltyTime;
 
     [SerializeField]
     private GameObject m_Prefab;
@@ -43,13 +41,17 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         _rigidBody.velocity = new Vector3(m_MoveSpeed * _movement.x, _rigidBody.velocity.y, m_MoveSpeed * _movement.y);
+        if (m_Health <= 0 && GameManager.Instance.IsGameActive)
+        {
+            _isShooting = false;
+            GameManager.Instance.EndGame();
+        }
     }
 
     void Update()
     {
-        if (_startInvincibility >= 0f) _startInvincibility -= Time.deltaTime;
         if (_isShooting && (Time.time - _lastSpawn >= 1f / m_FireRate)) SpawnProjectile();
-
+        _updateLifeForm();
         UpdateLookAt();
     }
 
@@ -76,14 +78,6 @@ public class PlayerManager : MonoBehaviour
         transform.LookAt(hit.point);
     }
 
-    private void OnCollisionEnter(Collision c)
-    {
-        if (c.gameObject.GetComponent<EnemyManager>() && _startInvincibility <= 0f)
-        {
-            LoseHP(c.gameObject.GetComponent<EnemyManager>().damage);
-        }
-    }
-
     #region Input System
     public void OnMove(InputValue value)
     {
@@ -92,22 +86,10 @@ public class PlayerManager : MonoBehaviour
         else
             _movement = Vector2.zero;
     }
-
+    
     public void OnShoot()
     {
         _isShooting = !_isShooting && gm.IsGameActive;
     }
     #endregion
-
-    public void LoseHP(float loosedHealth)
-    {
-        m_Health -= loosedHealth;
-        _startInvincibility = m_InvincibiltyTime;
-
-        if (m_Health <= 0)
-        {
-            _isShooting = false;
-            GameManager.Instance.EndGame();
-        }
-    }
 }

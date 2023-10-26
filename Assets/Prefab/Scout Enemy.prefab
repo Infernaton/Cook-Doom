@@ -147,6 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 1
+  m_InvincibiltyTime: 0
+  _startInvincibility: 0
+  m_DestroyWhenDie: 1
   m_MoveSpeed: 15
   m_Target: 0
-  damage: 1
+  GoldReward: 1
+  Damage: 1

@@ -121,13 +121,14 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(StartWave), 5f);
     }
 
-    public void IncrementScore()
+    public void IncrementScore(float increment)
     {
-        _score++;
+        _score += increment;
     }
 
     public void EndGame()
     {
+        Debug.Log("End Game");
         IsGameActive = false;
         ActivateSpawner(false);
     }

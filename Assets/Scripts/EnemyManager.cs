@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : LifeFormManager
 {
     private Rigidbody _rigidBody;
     private GameObject _target;
-
-    [SerializeField]
-    private float m_Health;
 
     [SerializeField]
     private float m_MoveSpeed;
@@ -16,7 +14,11 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private Target m_Target;
 
-    public float damage;
+    [SerializeField]
+    private float GoldReward;
+
+    [SerializeField]
+    private float Damage;
 
     void Awake()
     {
@@ -35,17 +37,17 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(_target.transform);
-    }
-
-    public void LoseHP(float loosedHealth)
-    {
-        m_Health -= loosedHealth;
-
-        if (m_Health <= 0) 
+        if (GameManager.Instance.IsGameActive)
         {
-            GameManager.Instance.IncrementScore();
-            Destroy(gameObject);
+            transform.LookAt(_target.transform);
+            _updateLifeForm();
+        }
+    }
+    private void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.GetInstanceID() == _target.GetInstanceID())
+        {
+            c.gameObject.GetComponent<LifeFormManager>().LoseHP(Damage);
         }
     }
 }
