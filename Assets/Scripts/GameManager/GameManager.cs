@@ -18,15 +18,14 @@ public class GameManager : MonoBehaviour
     private GameObject m_Spawner;
 
     [SerializeField]
-    private bool m_ActivateSpawner;
+    private float m_PlayerProtectionRadius;
 
-    [SerializeField]
-    private float m_ProtectionRadius;
+    [SerializeField] private TMP_Text m_HealthUI;
+    [SerializeField] private TMP_Text m_TimeUI;
+    [SerializeField] private TMP_Text m_ScoreUI;
+    [SerializeField] private TMP_Text m_WaveUI;
 
-    [SerializeField] private TMP_Text m_Health;
-    [SerializeField] private TMP_Text m_Time;
-    [SerializeField] private TMP_Text m_Score;
-
+    [SerializeField] private bool m_ActivateSpawner;
     [SerializeField] private GameObject m_SpawnerObject;
     [SerializeField] private Wave[] m_WaveList;
     private int _currentWaveIndex;
@@ -50,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         IsGameActive = true;
         _score = 0;
-        _currentWaveIndex = 0;
+        _currentWaveIndex = -1;
         _startTime = Time.time;
         Invoke("StartWave", 3f);
     }
@@ -70,6 +69,7 @@ public class GameManager : MonoBehaviour
             float time = Time.time - _startTime;
             UpdateTime(time);
             UpdateScore();
+            UpdateWave();
         }
         UpdateHealth();
     }
@@ -77,26 +77,31 @@ public class GameManager : MonoBehaviour
     #region Update UI
     void UpdateHealth()
     {
-        m_Health.text = string.Format("Health: {0:0}", m_Player.GetComponent<PlayerManager>().GetHealth());
+        m_HealthUI.text = string.Format("Health: {0:0}", m_Player.GetComponent<PlayerManager>().GetCurrentHealth());
     }
 
     void UpdateScore()
     {
-        m_Score.text = string.Format("Score: {0:0}", _score);
+        m_ScoreUI.text = string.Format("Score: {0:0}", _score);
     }
 
     private void UpdateTime(float time)
     {
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
-        m_Time.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    private void UpdateWave()
+    {
+        m_WaveUI.text = string.Format("Wave: {0:0}", _currentWaveIndex + 1);
     }
     #endregion
 
     public Vector3 ProtectedSpawnMob(Vector3 pos, float spawnRange)
     {
         Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
-        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_ProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
+        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_PlayerProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
         return finalPos;
     }
 
@@ -107,6 +112,8 @@ public class GameManager : MonoBehaviour
 
     public void StartWave()
     {
+        _currentWaveIndex++;
+        if (m_WaveList.Length < _currentWaveIndex + 1) return;
         Debug.Log("Start Wave " + _currentWaveIndex);
         ActivateSpawner();
         Invoke(nameof(StopWave), m_WaveList[_currentWaveIndex].WaveDuration);
@@ -116,8 +123,6 @@ public class GameManager : MonoBehaviour
     {
         ActivateSpawner(false);
         Debug.Log("Stop Wave " + _currentWaveIndex);
-        _currentWaveIndex++;
-        if (m_WaveList.Length < _currentWaveIndex + 1) return;
         Invoke(nameof(StartWave), 5f);
     }
 

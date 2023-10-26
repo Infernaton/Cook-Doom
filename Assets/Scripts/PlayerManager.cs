@@ -21,9 +21,13 @@ public class PlayerManager : LifeFormManager
     [SerializeField]
     private float m_FireRate;
 
-    public float GetHealth()
+    public float GetHealthBase()
     {
-        return m_Health;
+        return m_HealthBase;
+    }
+    public float GetCurrentHealth()
+    {
+        return _currentHealth;
     }
 
     private void Awake()
@@ -33,6 +37,7 @@ public class PlayerManager : LifeFormManager
 
     private void Start()
     {
+        _startLifeForm();
         gm = GameManager.Instance;
     }
 

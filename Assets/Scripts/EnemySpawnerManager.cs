@@ -17,7 +17,7 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InvokeRepeating("Spawn", _spawnRate, _spawnRate);
+        InvokeRepeating("Spawn", 0, _spawnRate);
     }
 
     private void OnDisable()

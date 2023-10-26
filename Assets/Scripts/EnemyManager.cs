@@ -25,6 +25,11 @@ public class EnemyManager : LifeFormManager
         _target = TargetManager.Instance.GetGameObject(m_Target);
     }
 
+    private void Start()
+    {
+        _startLifeForm();
+    }
+
     private void FixedUpdate()
     {
         if (GameManager.Instance.IsGameActive)

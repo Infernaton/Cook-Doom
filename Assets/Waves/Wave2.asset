@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wave2
   m_EditorClassIdentifier: 
   MobList:
-  - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
+  - {fileID: 2314919286905513727, guid: dbac06b8dc4a28f40aa35062a90d977f, type: 3}
   WaveDuration: 6
-  SpawnRate: 0.8
+  SpawnRate: 0.6
