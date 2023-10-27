@@ -12,6 +12,7 @@ namespace Entity
 
         private float _startInvincibility;
         protected float _currentHealth;
+        private bool _isDead;
 
         protected void _startLifeForm()
         {
@@ -21,7 +22,11 @@ namespace Entity
         protected void _updateLifeForm()
         {
             if (_startInvincibility > 0f) _startInvincibility -= Time.deltaTime;
-            if (_currentHealth <= 0 && m_OnDying != null) m_OnDying.Invoke();
+            if (_currentHealth <= 0 && m_OnDying != null && !_isDead)
+            {
+                _isDead = true;
+                m_OnDying.Invoke();
+            }
         }
         public void LoseHP(float damage)
         {
