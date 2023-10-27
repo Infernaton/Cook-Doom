@@ -11,23 +11,19 @@ public class GameManager : MonoBehaviour
     private float _startTime;
     private float _score;
 
-    [SerializeField]
-    private GameObject m_Player;
+    [SerializeField] GameObject m_Player;
 
-    [SerializeField]
-    private GameObject m_Spawner;
+    [SerializeField] GameObject m_Spawner;
+    [SerializeField] float m_PlayerProtectionRadius;
 
-    [SerializeField]
-    private float m_PlayerProtectionRadius;
+    [SerializeField] TMP_Text m_HealthUI;
+    [SerializeField] TMP_Text m_TimeUI;
+    [SerializeField] TMP_Text m_ScoreUI;
+    [SerializeField] TMP_Text m_WaveUI;
 
-    [SerializeField] private TMP_Text m_HealthUI;
-    [SerializeField] private TMP_Text m_TimeUI;
-    [SerializeField] private TMP_Text m_ScoreUI;
-    [SerializeField] private TMP_Text m_WaveUI;
-
-    [SerializeField] private bool m_ActivateSpawner;
+    [SerializeField] bool m_ActivateSpawner;
     [SerializeField] private GameObject m_SpawnerObject;
-    [SerializeField] private Wave[] m_WaveList;
+    [SerializeField] Wave[] m_WaveList;
     private int _currentWaveIndex;
 
     public static GameManager Instance; // A static reference to the GameManager instance

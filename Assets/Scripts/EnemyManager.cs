@@ -7,17 +7,10 @@ public class EnemyManager : LifeFormManager
     private Rigidbody _rigidBody;
     private GameObject _target;
 
-    [SerializeField]
-    private float m_MoveSpeed;
-
-    [SerializeField]
-    private Target m_Target;
-
-    [SerializeField]
-    private float m_GoldReward;
-
-    [SerializeField]
-    private float m_Damage;
+    [SerializeField] float m_MoveSpeed;
+    [SerializeField] Target m_Target;
+    [SerializeField] float m_GoldReward;
+    [SerializeField] float m_Damage;
 
     void Awake()
     {

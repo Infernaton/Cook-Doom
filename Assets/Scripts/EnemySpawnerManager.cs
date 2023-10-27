@@ -7,8 +7,7 @@ public class EnemySpawnerManager : MonoBehaviour
 {
     private float _spawnRate;
 
-    [SerializeField]
-    private float m_SpawnRange;
+    [SerializeField] float m_SpawnRange;
 
     public void SetSpawnRate(float spawnRate)
     {

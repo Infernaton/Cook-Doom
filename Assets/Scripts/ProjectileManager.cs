@@ -2,17 +2,10 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
-    [SerializeField]
-    private float m_Speed;
-
-    [SerializeField]
-    private float m_Damage;
-
-    [SerializeField]
-    private LayerMask m_LayerMask;
-
-    [SerializeField]
-    private GameObject m_EnemyPrefab;
+    [SerializeField] float m_Speed;
+    [SerializeField] float m_Damage;
+    [SerializeField] LayerMask m_LayerMask;
+    [SerializeField] GameObject m_EnemyPrefab;
 
     void Start()
     {

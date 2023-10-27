@@ -12,14 +12,9 @@ public class PlayerManager : LifeFormManager
 
     private bool _isShooting = false;
 
-    [SerializeField]
-    private float m_MoveSpeed;
-
-    [SerializeField]
-    private GameObject m_Prefab;
-
-    [SerializeField]
-    private float m_FireRate;
+    [SerializeField] float m_MoveSpeed;
+    [SerializeField] GameObject m_Projectile;
+    [SerializeField] float m_FireRate;
 
     public float GetHealthBase()
     {
@@ -55,7 +50,7 @@ public class PlayerManager : LifeFormManager
 
     private void SpawnProjectile()
     {
-        GameObject proj = Instantiate(m_Prefab, transform.position, Quaternion.identity);
+        GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.identity);
         //proj.transform.SetParent(transform);
         _lastSpawn = Time.time;
     }
