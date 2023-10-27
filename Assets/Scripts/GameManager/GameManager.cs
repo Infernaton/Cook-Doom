@@ -47,12 +47,12 @@ public class GameManager : MonoBehaviour
         _score = 0;
         _currentWaveIndex = -1;
         _startTime = Time.time;
-        Invoke("StartWave", 3f);
+        if (m_ActivateSpawner)
+            Invoke("StartWave", 3f);
     }
     public void ActivateSpawner(bool activate = true)
     {
         EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
-        m_ActivateSpawner = activate;
         e.SetSpawnRate(m_WaveList[_currentWaveIndex].SpawnRate);
         e.enabled = activate;
     }

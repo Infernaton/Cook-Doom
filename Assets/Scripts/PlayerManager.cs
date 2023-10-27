@@ -68,7 +68,7 @@ public class PlayerManager : LifeFormManager
         Physics.Raycast(rayCast, out hit, Camera.main.farClipPlane);
         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
 
-        transform.LookAt(hit.point);
+        transform.LookAt(new Vector3(hit.point.x, 0.8f, hit.point.z));
     }
 
     public void OnDeath()
