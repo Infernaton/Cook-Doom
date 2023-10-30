@@ -47,8 +47,7 @@ public class GameManager : MonoBehaviour
         _score = 0;
         _currentWaveIndex = -1;
         _startTime = Time.time;
-        if (m_ActivateSpawner)
-            Invoke("StartWave", 3f);
+        Invoke("StartWave", 3f);
     }
     public void ActivateSpawner(bool activate = true)
     {
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateScore()
     {
-        m_ScoreUI.text = string.Format("Score: {0:0}", _score);
+        m_ScoreUI.text = string.Format("VegeScore: {0:0}", _score);
     }
 
     private void UpdateTime(float time)
@@ -94,10 +93,14 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public Vector3 ProtectedSpawnMob(Vector3 pos, float spawnRange)
+    #region Spawning Mob
+    public Vector3? ProtectedSpawnMob(Vector3 pos, float spawnRange, int iterate = 0)
     {
+        if (iterate > 5) return null;
         Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
-        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_PlayerProtectionRadius) return ProtectedSpawnMob(pos, spawnRange);
+
+        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_PlayerProtectionRadius) 
+            return ProtectedSpawnMob(pos, spawnRange, iterate + 1);
         return finalPos;
     }
 
@@ -106,11 +109,16 @@ public class GameManager : MonoBehaviour
         return m_WaveList[_currentWaveIndex].MobList;
     }
 
+    public void WillStartWave()
+    {
+        Invoke(nameof(StartWave), 5f);
+    }
+
     public void StartWave()
     {
+        if (!m_ActivateSpawner) return;
         _currentWaveIndex++;
         if (m_WaveList.Length < _currentWaveIndex + 1) return;
-        Debug.Log("Start Wave " + _currentWaveIndex);
         ActivateSpawner();
         Invoke(nameof(StopWave), m_WaveList[_currentWaveIndex].WaveDuration);
     }
@@ -118,9 +126,9 @@ public class GameManager : MonoBehaviour
     private void StopWave()
     {
         ActivateSpawner(false);
-        Debug.Log("Stop Wave " + _currentWaveIndex);
-        Invoke(nameof(StartWave), 5f);
+        WillStartWave(); // Will be activate using a bind key
     }
+    #endregion
 
     public void IncrementScore(float increment)
     {

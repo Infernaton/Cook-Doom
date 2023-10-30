@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wave4
   m_EditorClassIdentifier: 
   MobList:
-  - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
+  - {fileID: 8084417249067818177, guid: 2a584501d076eee40a22ae12b7a5a4e1, type: 3}
   WaveDuration: 6
   SpawnRate: 0.5
