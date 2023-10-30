@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Utils
@@ -46,6 +48,31 @@ namespace Utils
         public static bool GameObjects(GameObject go1, GameObject go2) 
         {
             return go1.GetInstanceID() == go2.GetInstanceID();
+        }
+    }
+
+    public class Anim
+    {
+        public static IEnumerator FadeIn(float t, TMP_Text txt)
+        {
+            txt.enabled = true;
+            txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, 0);
+            while (txt.color.a < 1.0f)
+            {
+                txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, txt.color.a + (Time.deltaTime / t));
+                yield return null;
+            }
+        }
+
+        public static IEnumerator FadeOut(float t, TMP_Text txt)
+        {
+            txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, 1);
+            while (txt.color.a > 0.0f)
+            {
+                txt.color = new Color(txt.color.r, txt.color.g, txt.color.b, txt.color.a - (Time.deltaTime / t));
+                yield return null;
+            }
+            txt.enabled = false;
         }
     }
 }
