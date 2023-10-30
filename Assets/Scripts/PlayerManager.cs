@@ -68,11 +68,10 @@ public class PlayerManager : LifeFormManager
         Vector3 startPos = new Vector3(mouse.x, mouse.y, Camera.main.nearClipPlane);
 
         //Get ray from mouse postion
-        RaycastHit hit;
         Ray rayCast = Camera.main.ScreenPointToRay(startPos);
 
         //Raycast and check if any object is hit
-        Physics.Raycast(rayCast, out hit, Camera.main.farClipPlane);
+        Physics.Raycast(rayCast, out RaycastHit hit, Camera.main.farClipPlane);
         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
 
         transform.LookAt(new Vector3(hit.point.x, 0.8f, hit.point.z));
@@ -96,6 +95,12 @@ public class PlayerManager : LifeFormManager
     public void OnShoot()
     {
         _isShooting = !_isShooting && gm.IsGameActive;
+    }
+
+    public void OnNextWave()
+    {
+        if (GameManager.Instance.CurrentGameState == GameState.WaitWave)
+            GameManager.Instance.CurrentGameState = GameState.StartWave;
     }
     #endregion
 

@@ -4,8 +4,11 @@ public class ProjectileManager : MonoBehaviour
 {
     [SerializeField] float m_Speed;
     [SerializeField] float m_Damage;
+    [SerializeField] int m_NumberOfTargetBeforeDestroy;
     [SerializeField] LayerMask m_LayerMask;
     [SerializeField] GameObject m_EnemyPrefab;
+
+    private int _numberOfTargetHit;
 
     void Start()
     {
@@ -30,8 +33,11 @@ public class ProjectileManager : MonoBehaviour
 
         if (c.gameObject.GetComponent<EnemyManager>())
         {
+            _numberOfTargetHit++;
             EnemyManager enemy = c.gameObject.GetComponent<EnemyManager>();
             enemy.LoseHP(m_Damage);
+            if (_numberOfTargetHit >= m_NumberOfTargetBeforeDestroy)
+                Destroy(gameObject);
         }
     }
 }

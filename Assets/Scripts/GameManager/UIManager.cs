@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text m_ScoreUI;
     [SerializeField] TMP_Text m_WaveUI;
     [SerializeField] TMP_Text m_Announcement;
+    [SerializeField] TMP_Text m_Tips;
 
     public static UIManager Instance; // A static reference to the UIManager instance
     void Awake()
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
     {
         _gm = GameManager.Instance;
         m_Announcement.enabled = false;
+        m_Tips.enabled = false;
     }
 
     // Update is called once per frame
@@ -53,12 +55,13 @@ public class UIManager : MonoBehaviour
         m_ScoreUI.text = string.Format("VegeScore: {0:0}", _gm.Score);
     }
 
+    // Since we pass wave using a entry input, it's not necessary to display the time played
     private void UpdateTime()
     {
         float time = _gm.GetActiveTime();
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
-        m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        //m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void UpdateWave()
@@ -72,5 +75,16 @@ public class UIManager : MonoBehaviour
         m_Announcement.enabled = true;
         m_Announcement.text = message;
         StartCoroutine(Anim.FadeOut(3f, m_Announcement));
+    }
+
+    public void MakeTips(string message)
+    {
+        m_Tips.text = message;
+        StartCoroutine(Anim.FadeIn(2f, m_Tips));
+    }
+
+    public void HideTips()
+    {
+        StartCoroutine(Anim.FadeOut(0.5f, m_Tips));
     }
 }
