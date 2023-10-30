@@ -303,6 +303,7 @@ MonoBehaviour:
   m_MoveSpeed: 12
   m_Projectile: {fileID: 5535911559796985636, guid: df383c40895fdfc4a85a8a80ed91bc3a, type: 3}
   m_FireRate: 10
+  m_ProtectionRadius: 10
 --- !u!54 &120413295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1377,7 +1378,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 120413292}
   m_Spawner: {fileID: 484953125}
-  m_PlayerProtectionRadius: 10
   m_HealthUI: {fileID: 847813961}
   m_TimeUI: {fileID: 1139248011}
   m_ScoreUI: {fileID: 1228468495}

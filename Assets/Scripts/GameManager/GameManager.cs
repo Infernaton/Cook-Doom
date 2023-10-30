@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject m_Player;
 
     [SerializeField] GameObject m_Spawner;
-    [SerializeField] float m_PlayerProtectionRadius;
 
     [SerializeField] TMP_Text m_HealthUI;
     [SerializeField] TMP_Text m_TimeUI;
@@ -38,6 +37,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
         }
+    }
+
+    public GameObject Player()
+    {
+        return m_Player;
     }
 
     // Start is called before the first frame update
@@ -94,16 +98,6 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Spawning Mob
-    public Vector3? ProtectedSpawnMob(Vector3 pos, float spawnRange, int iterate = 0)
-    {
-        if (iterate > 5) return null;
-        Vector3 finalPos = Area.GetRandomCoord(pos, new Vector3(spawnRange, 0, spawnRange));
-
-        if (Vector3.Distance(m_Player.transform.position, finalPos) < m_PlayerProtectionRadius) 
-            return ProtectedSpawnMob(pos, spawnRange, iterate + 1);
-        return finalPos;
-    }
-
     public GameObject[] GetCurrentWaveMobList()
     {
         return m_WaveList[_currentWaveIndex].MobList;

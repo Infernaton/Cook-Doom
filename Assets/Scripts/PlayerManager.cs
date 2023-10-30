@@ -15,7 +15,9 @@ public class PlayerManager : LifeFormManager
     [SerializeField] float m_MoveSpeed;
     [SerializeField] GameObject m_Projectile;
     [SerializeField] float m_FireRate;
+    [SerializeField] float m_ProtectionRadius;
 
+    #region get
     public float GetHealthBase()
     {
         return m_HealthBase;
@@ -24,6 +26,11 @@ public class PlayerManager : LifeFormManager
     {
         return _currentHealth;
     }
+    public float GetProtectionRadius()
+    {
+        return m_ProtectionRadius;
+    }
+    #endregion
 
     private void Awake()
     {
