@@ -98,4 +98,22 @@ public class PlayerManager : LifeFormManager
         _isShooting = !_isShooting && gm.IsGameActive;
     }
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0.8f, 0.1f, 0.3f);
+        float corners = 4096; // How many corners the circle should have
+        Vector3 origin = transform.position; // Where the circle will be drawn around
+        Vector3 startRotation = transform.right * m_ProtectionRadius; // Where the first point of the circle starts
+        Vector3 lastPosition = origin + startRotation;
+        float angle = 0;
+        while (angle <= 360)
+        {
+            angle += 360 / corners;
+            Vector3 nextPosition = origin + (Quaternion.Euler(0, angle, 0) * startRotation);
+            Gizmos.DrawLine(lastPosition, nextPosition);
+            Gizmos.DrawLine(nextPosition, origin);
+            lastPosition = nextPosition;
+        }
+    }
 }

@@ -303,7 +303,7 @@ MonoBehaviour:
   m_MoveSpeed: 12
   m_Projectile: {fileID: 5535911559796985636, guid: df383c40895fdfc4a85a8a80ed91bc3a, type: 3}
   m_FireRate: 10
-  m_ProtectionRadius: 10
+  m_ProtectionRadius: 8
 --- !u!54 &120413295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1326,8 +1326,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 894619760}
-  - component: {fileID: 894619761}
   - component: {fileID: 894619762}
+  - component: {fileID: 894619763}
+  - component: {fileID: 894619761}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1378,10 +1379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 120413292}
   m_Spawner: {fileID: 484953125}
-  m_HealthUI: {fileID: 847813961}
-  m_TimeUI: {fileID: 1139248011}
-  m_ScoreUI: {fileID: 1228468495}
-  m_WaveUI: {fileID: 1692837848}
   m_ActivateSpawner: 1
   m_SpawnerObject: {fileID: 484953125}
   m_WaveList:
@@ -1391,6 +1388,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c0ce7f08e6477447af30b896059d376, type: 2}
   - {fileID: 11400000, guid: 4a7831e57c4980548b3974b4f9fb87e8, type: 2}
   - {fileID: 11400000, guid: 1939f93df0aa7374a8d73dde8f0b1e0c, type: 2}
+--- !u!114 &894619763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894619759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a461e5ac78b744699e60843103029c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthUI: {fileID: 847813961}
+  m_TimeUI: {fileID: 1139248011}
+  m_ScoreUI: {fileID: 1228468495}
+  m_WaveUI: {fileID: 1692837848}
+  m_Announcement: {fileID: 1924871040}
 --- !u!1 &903630065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2301,7 +2315,7 @@ GameObject:
   - component: {fileID: 1924871041}
   - component: {fileID: 1924871040}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Announcement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
