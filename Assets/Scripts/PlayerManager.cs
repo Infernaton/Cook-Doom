@@ -71,6 +71,7 @@ public class PlayerManager : LifeFormManager
 
     private void SpawnProjectile()
     {
+        // TODO: See if the spawn can be rotate, to avoid multi projectile in one area
         for (int i = 0; i < _playerModifierMerge.NumberProjectile; i++)
         {
             GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.identity);

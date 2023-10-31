@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b982931a8c1ce40b3eade4365f409c, type: 3}
   m_Name: Mod1
   m_EditorClassIdentifier: 
-  MovementSpeed: 150
+  MovementSpeed: 0
   ProtectionRadius: -25
-  MaxHealth: 100
+  MaxHealth: 50
   FireRate: 0
   CurrentHealthRecovery: 0
-  NumberProjectile: 2
+  NumberProjectile: 1
   ResetingPlayerModifier: 0
