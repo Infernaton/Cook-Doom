@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 public class UIManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text m_WaveUI;
     [SerializeField] TMP_Text m_Announcement;
     [SerializeField] TMP_Text m_Tips;
+    [SerializeField] CanvasGroup m_NextWave;
 
     public static UIManager Instance; // A static reference to the UIManager instance
     void Awake()
@@ -30,6 +32,7 @@ public class UIManager : MonoBehaviour
         _gm = GameManager.Instance;
         m_Announcement.enabled = false;
         m_Tips.enabled = false;
+        m_NextWave.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -86,5 +89,15 @@ public class UIManager : MonoBehaviour
     public void HideTips()
     {
         StartCoroutine(Anim.FadeOut(0.5f, m_Tips));
+    }
+
+    public void DisplayNextWaveButton()
+    {
+        StartCoroutine(Anim.FadeIn(1f, m_NextWave));
+    }
+
+    public void HideNextWaveButton()
+    {
+        StartCoroutine(Anim.FadeOut(0.5f, m_NextWave));
     }
 }

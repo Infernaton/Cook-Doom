@@ -17,6 +17,10 @@ public class PlayerManager : LifeFormManager
     [SerializeField] float m_FireRate;
     [SerializeField] float m_ProtectionRadius;
 
+    [SerializeField] float m_ProjSpeed;
+    [SerializeField] float m_ProjDamage;
+    [SerializeField] int m_ProjPiercing;
+
     #region get
     public float GetHealthBase()
     {
@@ -59,6 +63,9 @@ public class PlayerManager : LifeFormManager
     {
         GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.identity);
         //proj.transform.SetParent(transform);
+        proj.GetComponent<ProjectileManager>().Speed = m_ProjSpeed;
+        proj.GetComponent<ProjectileManager>().Damage = m_ProjDamage;
+        proj.GetComponent<ProjectileManager>().Piercing = m_ProjPiercing;
         _lastSpawn = Time.time;
     }
 
@@ -95,12 +102,6 @@ public class PlayerManager : LifeFormManager
     public void OnShoot()
     {
         _isShooting = !_isShooting && gm.IsGameActive;
-    }
-
-    public void OnNextWave()
-    {
-        if (GameManager.Instance.CurrentGameState == GameState.WaitWave)
-            GameManager.Instance.CurrentGameState = GameState.StartWave;
     }
     #endregion
 

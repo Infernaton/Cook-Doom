@@ -3,15 +3,19 @@ using UnityEngine;
 public enum GameState
 {
     Menu, // In the gameMenu Before the game itself
+    Pause, // When pausing the game, may append with input from player or the game itself (like in cinematic)
     WaitWave, // Waiting for the next wave to start with input by player
     StartWave, // Will Start the wave, will act like the Start() methods of a gameobject
     InWave, // When inside a wave
+    WaitEndGame, // When no wave are waiting but still enemies on the map
     EndGame // End game state
 }
 
 public class GameManager : MonoBehaviour
 {
-    public bool IsGameActive { get; private set; }
+    public bool IsGameActive {
+        get { return _currentGameState != GameState.Menu || _currentGameState != GameState.EndGame || _currentGameState != GameState.Pause; }
+    }
     public float Score { get; private set; }
 
     private float _startTime;
@@ -24,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Wave[] m_WaveList;
     public int CurrentWaveIndex { get; private set; }
 
-    public GameState CurrentGameState;
+    [SerializeField] GameState _currentGameState; //Debuging only
 
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -43,7 +47,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        IsGameActive = true;
         Score = 0;
         CurrentWaveIndex = -1;
         _startTime = Time.time;
@@ -51,19 +54,22 @@ public class GameManager : MonoBehaviour
     public void ActivateSpawner(bool activate = true)
     {
         EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
-        e.SetSpawnRate(m_WaveList[CurrentWaveIndex].SpawnRate);
         e.enabled = activate;
+        if (activate) e.SetSpawnRate(m_WaveList[CurrentWaveIndex].SpawnRate);
     }
 
     public void Update()
     {
-        switch (CurrentGameState)
+        switch (_currentGameState)
         {
-            case GameState.WaitWave:
-                break;
             case GameState.StartWave:
                 WillStartWave(m_TimeBeforeWave);
                 break;
+            case GameState.WaitEndGame:
+                if (!m_Spawner.GetComponent<EnemySpawnerManager>().HasChildEnemies())
+                    EndGame();
+                break;
+            case GameState.WaitWave:
             case GameState.InWave:
             default: break;
         }
@@ -79,11 +85,10 @@ public class GameManager : MonoBehaviour
 
     public void WillStartWave(float timeBefore)
     {
-        UIManager.Instance.HideTips();
         CurrentWaveIndex++;
         UIManager.Instance.MakeAnnoucement("Start of Wave " + (CurrentWaveIndex + 1));
         Invoke(nameof(StartWave), timeBefore);
-        CurrentGameState = GameState.InWave;
+        _currentGameState = GameState.InWave;
     }
 
     public void StartWave()
@@ -96,14 +101,25 @@ public class GameManager : MonoBehaviour
     private void StopWave()
     {
         ActivateSpawner(false);
-        if (m_WaveList.Length < CurrentWaveIndex + 1)
-        { 
-            EndGame();
-            return; 
+        if (m_WaveList.Length <= CurrentWaveIndex + 1)
+        {
+            Debug.Log("Wait for end game");
+            _currentGameState = GameState.WaitEndGame;
+            return;
         }
-        UIManager.Instance.MakeTips("Tap 'N' to start the next wave !");
-        CurrentGameState = GameState.WaitWave;
-        //Invoke("WillStartWave", 1f); // Will be activate using a bind key
+        Debug.Log("Display Next Button");
+        UIManager.Instance.DisplayNextWaveButton();
+        _currentGameState = GameState.WaitWave;
+    }
+
+    public void NextWave()
+    {
+        if (_currentGameState == GameState.WaitWave)
+        {
+            Debug.Log("Clicked");
+            _currentGameState = GameState.StartWave;
+            UIManager.Instance.HideNextWaveButton();
+        }
     }
     #endregion
 
@@ -117,8 +133,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.MakeAnnoucement("Good Job !");
         Debug.Log("End Game");
         CancelInvoke();
-        IsGameActive = false;
-        CurrentGameState = GameState.EndGame;
+        _currentGameState = GameState.EndGame;
         ActivateSpawner(false);
     }
 }

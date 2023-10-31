@@ -33,6 +33,12 @@ public class EnemySpawnerManager : MonoBehaviour
         if (posSpawn == null) return;
         instance.transform.localPosition = posSpawn.Value;
     }
+
+    public bool HasChildEnemies()
+    {
+        return gameObject.transform.childCount > 0;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(1f, 0.1f, 0.1f, 0.3f);

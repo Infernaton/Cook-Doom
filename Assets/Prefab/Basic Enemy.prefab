@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef015196f743a8499f128afc954f7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HealthBase: 1
+  m_HealthBase: 2
   m_InvincibiltyTime: 0
   m_OnDying:
     m_PersistentCalls:
@@ -587,7 +587,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_MoveSpeed: 10
+  m_MoveSpeed: 8
   m_Target: 0
   m_GoldReward: 1
   m_Damage: 1
