@@ -302,11 +302,14 @@ MonoBehaviour:
         m_CallState: 2
   m_MoveSpeed: 12
   m_Projectile: {fileID: 5535911559796985636, guid: df383c40895fdfc4a85a8a80ed91bc3a, type: 3}
-  m_FireRate: 10
   m_ProtectionRadius: 8
+  m_FireRate: 10
   m_ProjSpeed: 50
   m_ProjDamage: 1
   m_ProjPiercing: 0
+  m_PlayerModifierList:
+  - {fileID: 11400000, guid: df20cdc8eb5a1ac4d99b48555522fdba, type: 2}
+  m_ProjectileModifierList: []
 --- !u!54 &120413295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1530,7 +1533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 120413292}
   m_Spawner: {fileID: 484953125}
-  m_ActivateSpawner: 1
+  m_ActivateSpawner: 0
   m_TimeBeforeWave: 4
   m_WaveList:
   - {fileID: 11400000, guid: 7d173a11bff42664985bbe9e962f3447, type: 2}
@@ -1540,6 +1543,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c0ce7f08e6477447af30b896059d376, type: 2}
   - {fileID: 11400000, guid: 4a7831e57c4980548b3974b4f9fb87e8, type: 2}
   - {fileID: 11400000, guid: 1939f93df0aa7374a8d73dde8f0b1e0c, type: 2}
+  _currentGameState: 3
 --- !u!114 &894619763
 MonoBehaviour:
   m_ObjectHideFlags: 0

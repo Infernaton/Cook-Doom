@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Utils
 {
@@ -102,5 +100,18 @@ namespace Utils
             c.gameObject.SetActive(false);
         }
         #endregion
+    }
+
+    public class Math
+    {
+        public static float AddPercentage(float init, float percent)
+        {
+            return init + (percent * init / 100);
+        }
+
+        public static int AddPercentage(int init, float percent)
+        {
+            return (int)(init + (percent * init / 100));
+        }
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Utils;
 
 namespace Entity
 {
@@ -33,6 +34,24 @@ namespace Entity
             if (_startInvincibility > 0f) return;
             _currentHealth -= damage;
             _startInvincibility = m_InvincibiltyTime;
+        }
+
+        public void InstantHeal(float recover)
+        {
+            UpdateCurrentHealth(_currentHealth + recover);
+        }
+        public void InstantHealPercent(float recover)
+        {
+            UpdateCurrentHealth(Math.AddPercentage(_currentHealth, recover));
+        }
+
+        public void UpdateMaxHealth(float increase)
+        {
+            m_HealthBase = Math.AddPercentage(m_HealthBase, increase);
+        }
+        public void UpdateCurrentHealth(float newCurrentHealth)
+        {
+            _currentHealth = Mathf.Min(newCurrentHealth, m_HealthBase);
         }
     }
 }
