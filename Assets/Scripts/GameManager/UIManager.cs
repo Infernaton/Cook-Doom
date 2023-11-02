@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     #region Update UI
     void UpdateHealth()
     {
-        PlayerManager p = _gm.Player().GetComponent<PlayerManager>();
+        PlayerController p = _gm.Player();
         m_HealthUI.text = string.Format("Health: {0:0} / {1:0}", p.GetCurrentHealth(), p.GetHealthBase());
     }
 

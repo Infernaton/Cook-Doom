@@ -26,9 +26,9 @@ namespace Utils
         /**
          * Get a random coordinate in a cube except where the player is + its protection radius
          */
-        public static Vector3? GetRandomCoord(Vector3 center, Vector3 scale, GameObject player)
+        public static Vector3? GetRandomCoord(Vector3 center, Vector3 scale, PlayerController player)
         {
-            float protection = player.GetComponent<PlayerManager>().GetProtectionRadius();
+            float protection = player.GetProtectionRadius();
             Bounds b = new(center, scale);
             if (Vector3.Distance(player.transform.position, b.min) < protection && Vector3.Distance(player.transform.position, b.max) < protection)
                 return null;

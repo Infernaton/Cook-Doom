@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
@@ -7,14 +6,13 @@ public class ProjectileManager : MonoBehaviour
     [HideInInspector] public float Damage;
     [HideInInspector] public int Piercing; //Number of target Enemy before destroyed
     [SerializeField] LayerMask m_LayerMask;
-    [SerializeField] GameObject m_EnemyPrefab;
 
     private int _numberOfTargetHit;
 
     void Start()
     {
         //Maybe Rewrite this to call for Last Direction
-        PlayerManager p = FindAnyObjectByType<PlayerManager>();
+        PlayerController p = FindAnyObjectByType<PlayerController>();
 
         Vector3 force = new Vector3(Speed * p.transform.forward.x, 0, Speed * p.transform.forward.z);
         GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);

@@ -3,9 +3,8 @@ using UnityEngine.InputSystem;
 using Entity;
 using Utils;
 
-public class PlayerManager : LifeFormManager
+public class PlayerController : LifeFormManager
 {
-
     private Vector2 _movement;
     private Rigidbody _rigidBody;
     private float _lastSpawn;

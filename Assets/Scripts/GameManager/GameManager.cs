@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private float _startTime;
 
-    [SerializeField] GameObject m_Player;
+    [SerializeField] PlayerController m_Player;
 
     [SerializeField] GameObject m_Spawner;
     [SerializeField] bool m_ActivateSpawner;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
     }
 
-    public GameObject Player() => m_Player;
+    public PlayerController Player() => m_Player;
 
     // Start is called before the first frame update
     void Start()
