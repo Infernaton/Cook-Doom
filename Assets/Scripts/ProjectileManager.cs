@@ -14,7 +14,7 @@ public class ProjectileManager : MonoBehaviour
         //Maybe Rewrite this to call for Last Direction
         PlayerController p = FindAnyObjectByType<PlayerController>();
 
-        Vector3 force = new Vector3(Speed * p.transform.forward.x, 0, Speed * p.transform.forward.z);
+        Vector3 force = new Vector3(Speed * transform.forward.x, 0, Speed * transform.forward.z);
         GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
     }
 

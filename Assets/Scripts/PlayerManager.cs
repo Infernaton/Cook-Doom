@@ -30,7 +30,7 @@ public class PlayerController : LifeFormManager
     #region get
     public float GetHealthBase()
     {
-        return m_HealthBase;
+        return Math.AddPercentage(m_HealthBase, _playerModifierMerge.MaxHealth);
     }
     public float GetCurrentHealth()
     {
@@ -44,7 +44,7 @@ public class PlayerController : LifeFormManager
 
     private void Awake()
     {
-        this._rigidBody = GetComponent<Rigidbody>();
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -70,15 +70,17 @@ public class PlayerController : LifeFormManager
 
     private void SpawnProjectile()
     {
-        // TODO: See if the spawn can be rotate, to avoid multi projectile in one area
         for (int i = 0; i < _playerModifierMerge.NumberProjectile; i++)
         {
-            GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.identity);
-            //proj.transform.SetParent(transform);
+            //Set the projectile all arround the player when getting a bonus
+            float degree = (360 / _playerModifierMerge.NumberProjectile) * i;
+            GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
+            proj.transform.SetParent(transform.parent, true);
 
-            proj.GetComponent<ProjectileManager>().Speed = Math.AddPercentage(m_ProjSpeed, _projModifierMerge.MovingSpeed);
-            proj.GetComponent<ProjectileManager>().Damage = Math.AddPercentage(m_ProjDamage, _projModifierMerge.Damage);
-            proj.GetComponent<ProjectileManager>().Piercing = Math.AddPercentage(m_ProjPiercing, _projModifierMerge.Piercing);
+            ProjectileManager projManager = proj.GetComponent<ProjectileManager>();
+            projManager.Speed = Math.AddPercentage(m_ProjSpeed, _projModifierMerge.MovingSpeed);
+            projManager.Damage = Math.AddPercentage(m_ProjDamage, _projModifierMerge.Damage);
+            projManager.Piercing = Math.AddPercentage(m_ProjPiercing, _projModifierMerge.Piercing);
 
             proj.transform.localScale += _projModifierMerge.Size * proj.transform.localScale / 100;
             if (_projModifierMerge.NewColor != null) proj.GetComponent<Material>().color = (Color)_projModifierMerge.NewColor;
@@ -132,7 +134,6 @@ public class PlayerController : LifeFormManager
 
             mod.NumberProjectile = item.NumberProjectile;
         }
-        UpdateMaxHealth(mod.MaxHealth);
         InstantHealPercent(mod.CurrentHealthRecovery);
         return mod;
     }
@@ -153,7 +154,7 @@ public class PlayerController : LifeFormManager
         else
             _movement = Vector2.zero;
     }
-    
+
     public void OnShoot()
     {
         _isShooting = !_isShooting && gm.IsGameActive;
@@ -162,6 +163,8 @@ public class PlayerController : LifeFormManager
 
     private void OnDrawGizmosSelected()
     {
+        _projModifierMerge = MergeAllProjModifier();
+        _playerModifierMerge = MergeAllPlayerModifier();
         Gizmos.color = new Color(1f, 0.8f, 0.1f, 0.3f);
         float corners = 4096; // How many corners the circle should have
         Vector3 origin = transform.position; // Where the circle will be drawn around

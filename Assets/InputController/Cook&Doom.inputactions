@@ -16,9 +16,9 @@
                 },
                 {
                     "name": "Shoot",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "7bc9bda5-8faa-4172-be01-656bc5123466",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -161,6 +161,17 @@
                     "name": "",
                     "id": "9aad03c7-5b70-4eec-94ff-f04c88f988c9",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79fc287e-3df2-4b95-b85c-6af15697ce43",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

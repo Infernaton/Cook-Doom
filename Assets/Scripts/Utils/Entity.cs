@@ -45,10 +45,6 @@ namespace Entity
             UpdateCurrentHealth(Math.AddPercentage(_currentHealth, recover));
         }
 
-        public void UpdateMaxHealth(float increase)
-        {
-            m_HealthBase = Math.AddPercentage(m_HealthBase, increase);
-        }
         public void UpdateCurrentHealth(float newCurrentHealth)
         {
             _currentHealth = Mathf.Min(newCurrentHealth, m_HealthBase);
