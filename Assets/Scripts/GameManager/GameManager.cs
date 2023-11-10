@@ -7,7 +7,7 @@ public enum GameState
     WaitWave, // Waiting for the next wave to start with input by player
     StartWave, // Will Start the wave, will act like the Start() methods of a gameobject
     InWave, // When inside a wave
-    WaitEndGame, // When no wave are waiting but still enemies on the map
+    WaitEndGame, // When no next wave but still enemies on the map
     EndGame // End game state
 }
 

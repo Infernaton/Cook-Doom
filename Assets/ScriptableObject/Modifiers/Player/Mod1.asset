@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mod1
   m_EditorClassIdentifier: 
   MovementSpeed: 0
-  ProtectionRadius: -25
-  MaxHealth: 50
+  ProtectionRadius: 0
+  MaxHealth: 0
   FireRate: 0
   CurrentHealthRecovery: 0
   NumberProjectile: 1
