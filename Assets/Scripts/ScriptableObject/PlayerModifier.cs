@@ -12,8 +12,6 @@ public class PlayerModifier : ScriptableObject
     public float MaxHealth;
     public float FireRate;
 
-    public float CurrentHealthRecovery;
-
     [Range(1, 5)]
     public int NumberProjectile = 1;
 

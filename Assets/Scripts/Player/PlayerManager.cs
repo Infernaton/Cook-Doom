@@ -14,6 +14,7 @@ public class PlayerController : LifeFormManager
 
     [SerializeField] float m_MoveSpeed;
     [SerializeField] GameObject m_Projectile;
+    [SerializeField] Transform m_SpawnProjectile;
     [SerializeField] float m_ProtectionRadius;
 
     [SerializeField] float m_FireRate;
@@ -74,7 +75,7 @@ public class PlayerController : LifeFormManager
         {
             //Set the projectile all arround the player when getting a bonus
             float degree = (360 / _playerModifierMerge.NumberProjectile) * i;
-            GameObject proj = Instantiate(m_Projectile, transform.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
+            GameObject proj = Instantiate(m_Projectile, m_SpawnProjectile.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
             proj.transform.SetParent(transform.parent, true);
 
             ProjectileManager projManager = proj.GetComponent<ProjectileManager>();
@@ -130,11 +131,10 @@ public class PlayerController : LifeFormManager
             mod.ProtectionRadius += item.ProtectionRadius;
             mod.MaxHealth += item.MaxHealth;
             mod.FireRate += item.FireRate;
-            mod.CurrentHealthRecovery += item.CurrentHealthRecovery;
 
-            mod.NumberProjectile = item.NumberProjectile;
+            //Making sure we kept the bigger number of projectile (this modification is not adding itself up)
+            mod.NumberProjectile = Mathf.Max(item.NumberProjectile, mod.NumberProjectile);
         }
-        InstantHealPercent(mod.CurrentHealthRecovery);
         return mod;
     }
     #endregion
