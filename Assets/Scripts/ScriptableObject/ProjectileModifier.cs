@@ -1,11 +1,12 @@
 using UnityEngine;
+using Entity;
 
 /**
  * Each modifier will add or remove stats for the projectile
  * in percentage with the default value init in the player (projectile part) gameobject
  */
 [CreateAssetMenu(fileName = "New Modifier", menuName = "Player/Projectile/New Modifier")]
-public class ProjectileModifier : ScriptableObject
+public class ProjectileModifier : Modifier
 {
     #region Stat attribute
     public float MovingSpeed;

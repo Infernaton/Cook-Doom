@@ -50,4 +50,10 @@ namespace Entity
             _currentHealth = Mathf.Min(newCurrentHealth, m_HealthBase);
         }
     }
+
+    public class Modifier : ScriptableObject
+    {
+        [Range(1, 3)]
+        public int Rarity;
+    }
 }

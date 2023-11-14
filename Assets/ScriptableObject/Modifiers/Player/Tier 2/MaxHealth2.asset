@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76b982931a8c1ce40b3eade4365f409c, type: 3}
-  m_Name: Mod1
+  m_Name: MaxHealth2
   m_EditorClassIdentifier: 
+  Rarity: 2
   MovementSpeed: 0
   ProtectionRadius: 0
-  MaxHealth: 0
+  MaxHealth: 25
   FireRate: 0
-  CurrentHealthRecovery: 0
   NumberProjectile: 1
   ResetingPlayerModifier: 0
