@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Entity;
 using Utils;
+using System.Collections.Generic;
 
 public class PlayerController : LifeFormManager
 {
@@ -23,9 +24,9 @@ public class PlayerController : LifeFormManager
     [SerializeField] float m_ProjDamage;
     [SerializeField] int m_ProjPiercing;
 
-    [SerializeField] PlayerModifier[] m_PlayerModifierList;
+    [SerializeField] List<PlayerModifier> m_PlayerModifierList;
     private PlayerModifier _playerModifierMerge;
-    [SerializeField] ProjectileModifier[] m_ProjectileModifierList;
+    [SerializeField] List<ProjectileModifier> m_ProjectileModifierList;
     private ProjectileModifier _projModifierMerge;
 
     #region get
@@ -43,17 +44,31 @@ public class PlayerController : LifeFormManager
     }
     #endregion
 
+    public void AddModifier(Modifier mod)
+    {
+        if (mod is PlayerModifier playerMod)
+        {
+            m_PlayerModifierList.Add(playerMod);
+            _playerModifierMerge = MergeAllPlayerModifier();
+        } 
+        else if (mod is ProjectileModifier projMod)
+        {
+            m_ProjectileModifierList.Add(projMod);
+            _projModifierMerge = MergeAllProjModifier();
+        }
+    }
+
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _projModifierMerge = MergeAllProjModifier();
+        _playerModifierMerge = MergeAllPlayerModifier();
     }
 
     private void Start()
     {
         _startLifeForm();
         gm = GameManager.Instance;
-        _projModifierMerge = MergeAllProjModifier();
-        _playerModifierMerge = MergeAllPlayerModifier();
     }
 
     private void FixedUpdate()

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3752122082463680304}
   m_Layer: 6
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 382822963511955463}
   serializedVersion: 2
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.4, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 7095091329995370804}
   m_Layer: 6
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -225,10 +225,9 @@ GameObject:
   - component: {fileID: 8827476171404824070}
   - component: {fileID: 7405376458080794861}
   - component: {fileID: 5401019179243572853}
-  - component: {fileID: 3214783676139328662}
   m_Layer: 6
   m_Name: Cannon
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -242,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 2905857076929065074}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.826, z: 0.544}
+  m_LocalPosition: {x: 0, y: 0.226, z: 0.544}
   m_LocalScale: {x: 0.2, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -300,29 +299,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3214783676139328662
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2905857076929065074}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &3724376582535451195
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +310,6 @@ GameObject:
   - component: {fileID: 1366631986508453128}
   - component: {fileID: 4630502617297929569}
   - component: {fileID: 8922902676192703314}
-  - component: {fileID: 937223336311408420}
   m_Layer: 6
   m_Name: Pupil
   m_TagString: Untagged
@@ -407,27 +382,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &937223336311408420
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3724376582535451195}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4004220359122318966
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +396,7 @@ GameObject:
   - component: {fileID: 6235040623286933568}
   m_Layer: 6
   m_Name: Sphere (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -547,7 +501,7 @@ GameObject:
   - component: {fileID: 4073988358614625266}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -606,8 +560,7 @@ MonoBehaviour:
   m_ProjSpeed: 50
   m_ProjDamage: 1
   m_ProjPiercing: 0
-  m_PlayerModifierList:
-  - {fileID: 11400000, guid: df20cdc8eb5a1ac4d99b48555522fdba, type: 2}
+  m_PlayerModifierList: []
   m_ProjectileModifierList: []
 --- !u!114 &780667866309410433
 MonoBehaviour:
@@ -737,7 +690,6 @@ GameObject:
   - component: {fileID: 2584728029565611750}
   - component: {fileID: 8488526284236134218}
   - component: {fileID: 4260119007113577969}
-  - component: {fileID: 7555516931135504520}
   m_Layer: 6
   m_Name: Pupil
   m_TagString: Untagged
@@ -810,27 +762,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7555516931135504520
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834646148634750009}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7938822341386757709
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,7 +773,6 @@ GameObject:
   - component: {fileID: 6680871419553083596}
   - component: {fileID: 4918818661796792776}
   - component: {fileID: 8029583639464296950}
-  - component: {fileID: 5849191696099944639}
   m_Layer: 6
   m_Name: Right Eye
   m_TagString: Untagged
@@ -916,27 +846,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5849191696099944639
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7938822341386757709}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8811132486484633188
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +857,6 @@ GameObject:
   - component: {fileID: 1837514992530400734}
   - component: {fileID: 3336731400171393324}
   - component: {fileID: 203305554963863682}
-  - component: {fileID: 7346363031492225314}
   m_Layer: 6
   m_Name: Left Eye
   m_TagString: Untagged
@@ -1022,24 +930,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7346363031492225314
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8811132486484633188}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

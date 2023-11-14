@@ -13,12 +13,18 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    //TODO Fix IsGameActive
     public bool IsGameActive {
         get { return _currentGameState != GameState.Menu || _currentGameState != GameState.EndGame || _currentGameState != GameState.Pause; }
+    }
+    public bool IsWaitingWave
+    {
+        get { return _currentGameState == GameState.WaitWave; }
     }
     public float Score { get; private set; }
 
     private float _startTime;
+    private GameState _currentGameState;
 
     [SerializeField] PlayerController m_Player;
 
@@ -26,9 +32,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool m_ActivateSpawner;
     [SerializeField] float m_TimeBeforeWave;
     [SerializeField] Wave[] m_WaveList;
+    [SerializeField] GameObject m_ItemHolderPrefab;
+    [SerializeField] Transform[] m_ItemSpawnPoints;
     public int CurrentWaveIndex { get; private set; }
-
-    [SerializeField] GameState _currentGameState; //Debuging only
 
     public static GameManager Instance; // A static reference to the GameManager instance
     void Awake()
@@ -50,6 +56,7 @@ public class GameManager : MonoBehaviour
         Score = 0;
         CurrentWaveIndex = -1;
         _startTime = Time.time;
+        _currentGameState = GameState.StartWave;
     }
     public void ActivateSpawner(bool activate = true)
     {
@@ -109,6 +116,7 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("Display Next Button");
         UIManager.Instance.DisplayNextWaveButton();
+        SpawnItemHolder();
         _currentGameState = GameState.WaitWave;
     }
 
@@ -122,6 +130,16 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    private void SpawnItemHolder()
+    {
+        for (int i = 0; i < m_ItemSpawnPoints.Length; i++)
+        {
+            GameObject itemHolder = Instantiate(m_ItemHolderPrefab, m_ItemSpawnPoints[i], true);
+            itemHolder.transform.localPosition = Vector3.zero;
+
+        }
+    }
 
     public void IncrementScore(float increment)
     {

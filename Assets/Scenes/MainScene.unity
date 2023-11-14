@@ -359,6 +359,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 382703332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &245435281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7263308927885433746, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
+  m_PrefabInstance: {fileID: 8872810608147521961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &338911784
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +446,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1767699192421836052, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
   m_PrefabInstance: {fileID: 8872810608147521961}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 245435281}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53e3019c746d2554d9235af4e142e7ea, type: 3}
@@ -1471,7 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b9155c5d540b84f8fe1054502c5110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 245435281}
   point: {fileID: 903630065}
 --- !u!114 &894619762
 MonoBehaviour:
@@ -1487,7 +1492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 423099745}
   m_Spawner: {fileID: 484953125}
-  m_ActivateSpawner: 0
+  m_ActivateSpawner: 1
   m_TimeBeforeWave: 4
   m_WaveList:
   - {fileID: 11400000, guid: 7d173a11bff42664985bbe9e962f3447, type: 2}
@@ -1497,7 +1502,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c0ce7f08e6477447af30b896059d376, type: 2}
   - {fileID: 11400000, guid: 4a7831e57c4980548b3974b4f9fb87e8, type: 2}
   - {fileID: 11400000, guid: 1939f93df0aa7374a8d73dde8f0b1e0c, type: 2}
-  _currentGameState: 3
+  m_ItemHolderPrefab: {fileID: 7409175398152514900, guid: e965f85bf3d335d42b29745f6a1fb3bf, type: 3}
+  m_ItemSpawnPoints:
+  - {fileID: 1559162838}
+  - {fileID: 2010602407}
+  - {fileID: 1348074060}
 --- !u!114 &894619763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,7 +1551,7 @@ Transform:
   m_GameObject: {fileID: 903630065}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2204,7 +2213,7 @@ Transform:
   m_GameObject: {fileID: 1348074059}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: -3}
+  m_LocalPosition: {x: 2.5, y: 0.25, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2235,7 +2244,7 @@ Transform:
   m_GameObject: {fileID: 1559162837}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 0}
+  m_LocalPosition: {x: 2.5, y: 0.25, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2639,7 +2648,7 @@ Transform:
   m_GameObject: {fileID: 2010602406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 3}
+  m_LocalPosition: {x: 2.5, y: 0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3221,14 +3230,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 382703332}
     m_Modifications:
-    - target: {fileID: 1767699192421836052, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
-      propertyPath: m_PlayerModifierList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1767699192421836052, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
-      propertyPath: m_PlayerModifierList.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5106443968673804379, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3267,6 +3268,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5106443968673804379, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235040623286933568, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7263308927885433746, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
