@@ -12,6 +12,8 @@ public class EnemyManager : LifeFormManager
     [SerializeField] float m_GoldReward;
     [SerializeField] float m_Damage;
 
+    private bool _onTarget;
+
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -25,7 +27,7 @@ public class EnemyManager : LifeFormManager
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.IsGameActive)
+        if (GameManager.Instance.IsGameActive && !_onTarget)
         {
             transform.position += transform.forward * m_MoveSpeed * Time.deltaTime;
         }
@@ -45,6 +47,14 @@ public class EnemyManager : LifeFormManager
         if (Compare.GameObjects(c.gameObject, _target))
         {
             c.gameObject.GetComponent<LifeFormManager>().LoseHP(m_Damage);
+            _onTarget = true;
+        }
+    }
+    private void OnCollisionExit(Collision c)
+    {
+        if (Compare.GameObjects(c.gameObject, _target))
+        {
+            _onTarget = false;
         }
     }
 

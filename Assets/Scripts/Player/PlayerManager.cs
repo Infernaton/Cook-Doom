@@ -107,7 +107,7 @@ public class PlayerController : LifeFormManager
     private void UpdateLookAt()
     {
         Vector2 mouse = Mouse.current.position.value;
-        Vector3 startPos = new Vector3(mouse.x, mouse.y, Camera.main.nearClipPlane);
+        Vector3 startPos = new (mouse.x, mouse.y, Camera.main.nearClipPlane);
 
         //Get ray from mouse postion
         Ray rayCast = Camera.main.ScreenPointToRay(startPos);
@@ -116,7 +116,7 @@ public class PlayerController : LifeFormManager
         Physics.Raycast(rayCast, out RaycastHit hit, Camera.main.farClipPlane);
         Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
 
-        transform.LookAt(new Vector3(hit.point.x, 0.8f, hit.point.z));
+        transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
     }
 
     #region Modifiers
@@ -164,6 +164,7 @@ public class PlayerController : LifeFormManager
     #region Input System
     public void OnMove(InputValue value)
     {
+        print(gm.IsGameActive);
         if (gm.IsGameActive)
             _movement = value.Get<Vector2>();
         else
