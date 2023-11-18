@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
     #region Wave Handle
     private void WillStartWave(float timeBefore)
     {
+        KillItemHolder();
         CurrentWaveIndex++;
         UIManager.Instance.MakeAnnoucement("Start of Wave " + (CurrentWaveIndex + 1));
         Invoke(nameof(StartWave), timeBefore);
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
         } else
         {
             UIManager.Instance.DisplayNextWaveButton();
-            SpawnItemHolder();
+            SpawnNewItemHolder();
             _currentGameState = GameState.WaitNextWave;
         }
     }
@@ -142,13 +143,26 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    private void SpawnItemHolder()
+    [ContextMenu("Spawn Item Holder")]
+    private void SpawnNewItemHolder()
     {
+        KillItemHolder();
+        print("----------------------");
         for (int i = 0; i < m_ItemSpawnPoints.Length; i++)
         {
             GameObject itemHolder = Instantiate(m_ItemHolderPrefab, m_ItemSpawnPoints[i], true);
             itemHolder.transform.localPosition = Vector3.zero;
-
+        }
+    }
+    [ContextMenu("Kill Items Holders")]
+    private void KillItemHolder()
+    {
+        for(int i = 0; i < m_ItemSpawnPoints.Length; i++)
+        {
+            for(int o=0; o < m_ItemSpawnPoints[i].childCount; o++)
+            {
+                Destroy(m_ItemSpawnPoints[i].GetChild(o).gameObject);
+            }
         }
     }
 

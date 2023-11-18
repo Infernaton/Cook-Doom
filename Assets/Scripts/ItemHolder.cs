@@ -33,8 +33,10 @@ public class ItemHolder : MonoBehaviour
 
     Modifier GenHoldingItem(int iteration = 1)
     {
-        Modifier mod = m_BuyableItem[Random.Range(0, m_BuyableItem.Length - 1)];
-        return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration++);
+        int r = Random.Range(0, m_BuyableItem.Length - 1);
+        Modifier mod = m_BuyableItem[r];
+        print("iterate: " + iteration + " | Random: " + r + " | Reset ? " + !(mod.Rarity - iteration <= 0));
+        return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration+1);
     }
 
     void Start()
@@ -58,7 +60,6 @@ public class ItemHolder : MonoBehaviour
             UIManager.Instance.HideTips();
             Destroy(gameObject);
         }
-        if (!gm.IsWaitingWave) Destroy(gameObject);
     }
 
     public void OnTriggerEnter(Collider other)
