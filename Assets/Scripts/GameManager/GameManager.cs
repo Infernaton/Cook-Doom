@@ -13,9 +13,8 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    //TODO Fix IsGameActive
     public bool IsGameActive {
-        get { return _currentGameState != GameState.Menu || _currentGameState != GameState.EndGame || _currentGameState != GameState.Pause; }
+        get { return _currentGameState != GameState.Menu && _currentGameState != GameState.EndGame && _currentGameState != GameState.Pause; }
     }
     public bool IsWaitingWave
     {

@@ -164,7 +164,6 @@ public class PlayerController : LifeFormManager
     #region Input System
     public void OnMove(InputValue value)
     {
-        print(gm.IsGameActive);
         if (gm.IsGameActive)
             _movement = value.Get<Vector2>();
         else
