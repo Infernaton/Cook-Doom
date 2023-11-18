@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 423099745}
   m_Spawner: {fileID: 484953125}
-  m_ActivateSpawner: 0
+  m_ActivateSpawner: 1
   m_TimeBeforeWave: 4
   m_WaveList:
   - {fileID: 11400000, guid: 7d173a11bff42664985bbe9e962f3447, type: 2}
