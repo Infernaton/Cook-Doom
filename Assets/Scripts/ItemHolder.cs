@@ -39,6 +39,11 @@ public class ItemHolder : MonoBehaviour
         return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration+1);
     }
 
+    private void Awake()
+    {
+        m_Title.enabled = false;
+    }
+
     void Start()
     {
         gm = GameManager.Instance;
@@ -67,6 +72,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = true;
+            StartCoroutine(Anim.FadeIn(0.5f, m_Title));
             UIManager.Instance.MakeTips("Press 'F' to Buy");
         }
     }
@@ -76,6 +82,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = false;
+            StartCoroutine(Anim.FadeOut(0.5f, m_Title));
             UIManager.Instance.HideTips();
         }
     }
