@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b982931a8c1ce40b3eade4365f409c, type: 3}
   m_Name: Agility1
   m_EditorClassIdentifier: 
-  Rarity: 0
+  Rarity: 1
   MovementSpeed: 5
   ProtectionRadius: 0
   MaxHealth: 0

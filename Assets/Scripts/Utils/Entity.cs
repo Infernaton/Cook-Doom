@@ -54,6 +54,6 @@ namespace Entity
     public class Modifier : ScriptableObject
     {
         [Range(1, 3)]
-        public int Rarity;
+        public int Rarity = 1;
     }
 }

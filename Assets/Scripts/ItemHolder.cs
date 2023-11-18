@@ -31,22 +31,24 @@ public class ItemHolder : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    Modifier GenHoldingItem(int iteration = 1)
+    {
+        Modifier mod = m_BuyableItem[Random.Range(0, m_BuyableItem.Length - 1)];
+        return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration++);
+    }
+
     void Start()
     {
         gm = GameManager.Instance;
-        //TODO Generate the object it has
-        _currentItem = m_BuyableItem[0];
-        _cost = 1;
+        _currentItem = GenHoldingItem();
+        _cost = _currentItem.Rarity * _currentItem.Rarity;
 
-        print(_currentItem.Rarity);
         m_Renderer.material = SelectColor(_currentItem.Rarity);
 
         m_Title.text = _currentItem.name + " Cost: " + _cost + "VGs";
         m_Title.material = SelectColor(_currentItem.Rarity);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (_isTriggerActive && Keyboard.current.fKey.wasPressedThisFrame && _cost <= gm.Score)

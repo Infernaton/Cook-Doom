@@ -4,10 +4,10 @@ public enum GameState
 {
     Menu, // In the gameMenu Before the game itself
     Pause, // When pausing the game, may append with input from player or the game itself (like in cinematic)
-    WaitWave, // Waiting for the next wave to start with input by player
+    WaitNextWave, // Waiting for the next wave to start with input by player
     StartWave, // Will Start the wave, will act like the Start() methods of a gameobject
     InWave, // When inside a wave
-    WaitEndGame, // When no next wave but still enemies on the map
+    WaitEndWave, // When no next wave but still enemies on the map
     EndGame // End game state
 }
 
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     }
     public bool IsWaitingWave
     {
-        get { return _currentGameState == GameState.WaitWave; }
+        get { return _currentGameState == GameState.WaitNextWave; }
     }
     public float Score { get; private set; }
 
@@ -37,6 +37,22 @@ public class GameManager : MonoBehaviour
     public int CurrentWaveIndex { get; private set; }
 
     public static GameManager Instance; // A static reference to the GameManager instance
+
+    #region Getter
+    public PlayerController Player() => m_Player;
+
+    public float GetActiveTime() => Time.time - _startTime;
+
+    public GameObject[] GetCurrentWaveMobList() => m_WaveList[CurrentWaveIndex].MobList;
+    #endregion
+
+    #region Setter
+    public void IncrementScore(float increment)
+    {
+        Score += increment;
+    }
+    #endregion
+
     void Awake()
     {
         if (Instance == null) // If there is no instance already
@@ -48,9 +64,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // Destroy the GameObject, this component is attached to
     }
 
-    public PlayerController Player() => m_Player;
-
-    // Start is called before the first frame update
     void Start()
     {
         Score = 0;
@@ -72,25 +85,18 @@ public class GameManager : MonoBehaviour
             case GameState.StartWave:
                 WillStartWave(m_TimeBeforeWave);
                 break;
-            case GameState.WaitEndGame:
+            case GameState.WaitEndWave:
                 if (!m_Spawner.GetComponent<EnemySpawnerManager>().HasChildEnemies())
-                    EndGame();
+                    EndWave();
                 break;
-            case GameState.WaitWave:
+            case GameState.WaitNextWave:
             case GameState.InWave:
             default: break;
         }
     }
 
-    public float GetActiveTime()
-    {
-        return Time.time - _startTime;
-    }
-
-    #region Spawning Mob
-    public GameObject[] GetCurrentWaveMobList() => m_WaveList[CurrentWaveIndex].MobList;
-
-    public void WillStartWave(float timeBefore)
+    #region Wave Handle
+    private void WillStartWave(float timeBefore)
     {
         CurrentWaveIndex++;
         UIManager.Instance.MakeAnnoucement("Start of Wave " + (CurrentWaveIndex + 1));
@@ -98,33 +104,39 @@ public class GameManager : MonoBehaviour
         _currentGameState = GameState.InWave;
     }
 
-    public void StartWave()
+    private void StartWave()
     {
         if (!m_ActivateSpawner) return;
         ActivateSpawner();
-        Invoke(nameof(StopWave), m_WaveList[CurrentWaveIndex].WaveDuration);
+        Invoke(nameof(StopSpawn), m_WaveList[CurrentWaveIndex].WaveDuration);
     }
 
-    private void StopWave()
+    private void StopSpawn()
     {
         ActivateSpawner(false);
-        if (m_WaveList.Length <= CurrentWaveIndex + 1)
-        {
-            Debug.Log("Wait for end game");
-            _currentGameState = GameState.WaitEndGame;
-            return;
-        }
-        Debug.Log("Display Next Button");
-        UIManager.Instance.DisplayNextWaveButton();
-        SpawnItemHolder();
-        _currentGameState = GameState.WaitWave;
+        Debug.Log("Wait for killing all mobs");
+        _currentGameState = GameState.WaitEndWave;
     }
 
+    private void EndWave()
+    {
+        //If no wave left, end the game
+        if (m_WaveList.Length <= CurrentWaveIndex + 1)
+        {
+            EndGame();
+        } else
+        {
+            UIManager.Instance.DisplayNextWaveButton();
+            SpawnItemHolder();
+            _currentGameState = GameState.WaitNextWave;
+        }
+    }
+
+    // Click on NextWaveButton
     public void NextWave()
     {
-        if (_currentGameState == GameState.WaitWave)
+        if (_currentGameState == GameState.WaitNextWave)
         {
-            Debug.Log("Clicked");
             _currentGameState = GameState.StartWave;
             UIManager.Instance.HideNextWaveButton();
         }
@@ -139,11 +151,6 @@ public class GameManager : MonoBehaviour
             itemHolder.transform.localPosition = Vector3.zero;
 
         }
-    }
-
-    public void IncrementScore(float increment)
-    {
-        Score += increment;
     }
 
     public void EndGame()
