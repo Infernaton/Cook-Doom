@@ -5,6 +5,7 @@
 - Add a Game Menu
 - Return to the game menu when the finishing the game
 - Add heal pack to shop item
+- Change UI in game to adapt with build version
 
 ## Not so Important
 
