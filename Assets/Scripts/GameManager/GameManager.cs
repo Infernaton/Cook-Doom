@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] Wave[] m_WaveList;
     [SerializeField] GameObject m_ItemHolderPrefab;
     [SerializeField] Transform[] m_ItemSpawnPoints;
+
+    [SerializeField] GameObject m_CanvaEndGame;
     public int CurrentWaveIndex { get; private set; }
 
     public static GameManager Instance; // A static reference to the GameManager instance
@@ -56,7 +58,6 @@ public class GameManager : MonoBehaviour
     {
         if (Instance == null) // If there is no instance already
         {
-            DontDestroyOnLoad(gameObject); // Keep the GameObject, this component is attached to, across different scenes
             Instance = this;
         }
         else if (Instance != this) // If there is already an instance and it's not `this` instance
@@ -173,5 +174,6 @@ public class GameManager : MonoBehaviour
         CancelInvoke();
         _currentGameState = GameState.EndGame;
         ActivateSpawner(false);
+        m_CanvaEndGame.SetActive(true);
     }
 }
