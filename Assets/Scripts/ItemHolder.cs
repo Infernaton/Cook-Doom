@@ -24,13 +24,13 @@ public class ItemHolder : MonoBehaviour
     Material SelectColor(int rarity)
     {
         if (_currentItem is InstantHeal) return m_MaterialHeal;
-        return rarity switch
+        switch (rarity)
         {
-            1 => m_MaterialTier1,
-            2 => m_MaterialTier2,
-            3 => m_MaterialTier3,
-            _ => m_Renderer.material,
-        };
+            case 1: return m_MaterialTier1;
+            case 2: return m_MaterialTier2;
+            case 3: return m_MaterialTier3;
+            default: return m_Renderer.material;
+        }
     }
 
     Modifier GenHoldingItem(int iteration = 1)
