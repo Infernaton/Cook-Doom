@@ -2,7 +2,6 @@
 
 ## Important
 
-- Add heal pack to shop item
 - Change UI in game
 
 ## Not so Important

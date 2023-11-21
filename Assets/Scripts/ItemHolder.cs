@@ -6,6 +6,7 @@ using Utils;
 
 public class ItemHolder : MonoBehaviour
 {
+    [SerializeField] Material m_MaterialHeal;
     [SerializeField] Material m_MaterialTier1;
     [SerializeField] Material m_MaterialTier2;
     [SerializeField] Material m_MaterialTier3;
@@ -22,13 +23,14 @@ public class ItemHolder : MonoBehaviour
 
     Material SelectColor(int rarity)
     {
-        switch (rarity)
+        if (_currentItem is InstantHeal) return m_MaterialHeal;
+        return rarity switch
         {
-            case 1: return m_MaterialTier1;
-            case 2: return m_MaterialTier2;
-            case 3: return m_MaterialTier3;
-            default: return m_Renderer.material;
-        }
+            1 => m_MaterialTier1,
+            2 => m_MaterialTier2,
+            3 => m_MaterialTier3,
+            _ => m_Renderer.material,
+        };
     }
 
     Modifier GenHoldingItem(int iteration = 1)
@@ -60,8 +62,9 @@ public class ItemHolder : MonoBehaviour
     {
         if (_isTriggerActive && Keyboard.current.fKey.wasPressedThisFrame && _cost <= gm.Score)
         {
-            gm.Player().AddModifier(_currentItem);
             gm.IncrementScore(-_cost);
+            if (_currentItem is InstantHeal heal) gm.Player().InstantHeal(heal.Healing);
+            else gm.Player().AddModifier(_currentItem);
             UIManager.Instance.HideTips();
             Destroy(gameObject);
         }

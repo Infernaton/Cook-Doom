@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9575c6c992f0343955582831aa0e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaterialHeal: {fileID: 2100000, guid: d1d23304ae729bd47867e31cf97d6a46, type: 2}
   m_MaterialTier1: {fileID: 2100000, guid: 9d8d70cbca4f72d4b87e2fb8ced37993, type: 2}
   m_MaterialTier2: {fileID: 2100000, guid: 01fa0c9b542146d48ad838ad32c35717, type: 2}
   m_MaterialTier3: {fileID: 2100000, guid: f614ab6e3996bc1489389caeeda23469, type: 2}
@@ -338,6 +339,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa781bb766aa4164ba4001384b438f80, type: 2}
   - {fileID: 11400000, guid: 19de79dcdc0119c4ab06cdf22977185d, type: 2}
   - {fileID: 11400000, guid: 95e04ea7d457136459b9c7ca6a2215cc, type: 2}
+  - {fileID: 11400000, guid: 6dff6ea54024eec4ca9dfc49e1b92855, type: 2}
+  - {fileID: 11400000, guid: ccd763c47a6f2044bb410b91996efab8, type: 2}
   m_Title: {fileID: 7970062211026657992}
   m_Renderer: {fileID: 2985066770510239001}
 --- !u!135 &995132863071943509
