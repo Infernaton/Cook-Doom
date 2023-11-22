@@ -26,8 +26,8 @@ public class EnemySpawnerManager : MonoBehaviour
 
     private void Spawn()
     {
-        GameObject[] enemyList = GameManager.Instance.GetCurrentWaveMobList();
-        int indexEnenmy = Random.Range(0, enemyList.Length);
+        List<GameObject> enemyList = GameManager.Instance.GetCurrentWaveMobList();
+        int indexEnenmy = Random.Range(0, enemyList.Count);
         GameObject instance = Instantiate(enemyList[indexEnenmy], transform);
         Vector3? posSpawn = Area.GetRandomCoord(transform.position, new Vector3(m_SpawnRange, 0, m_SpawnRange), GameManager.Instance.Player());
         if (posSpawn == null) return;

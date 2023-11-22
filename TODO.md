@@ -2,14 +2,14 @@
 
 ## Important
 
-- Change UI in game
+- Try to create an infinite level with custom auto generated wave
+- Save score to a leaderboard
 
 ## Not so Important
 
 - Add description to item we can buy to specify what it does
-- Try to create an infinite level with custom auto generated wave
 - Add particule effect / Animation to mob or player
-- Save score to a leaderboard
+- Change UI in game
 
 ## Bonus
 

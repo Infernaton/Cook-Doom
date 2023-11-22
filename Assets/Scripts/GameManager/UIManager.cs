@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateWave()
     {
-        m_WaveUI.text = string.Format("Wave: {0:0}", _gm.CurrentWaveIndex + 1);
+        m_WaveUI.text = string.Format("Wave: {0:0}", _gm.CurrentWaveIndex);
     }
     #endregion
 

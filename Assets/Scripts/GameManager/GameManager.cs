@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum GameState
@@ -31,11 +33,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool m_ActivateSpawner;
     [SerializeField] float m_TimeBeforeWave;
     [SerializeField] Wave[] m_WaveList;
+    [SerializeField] GameObject[] m_MobList;
     [SerializeField] GameObject m_ItemHolderPrefab;
     [SerializeField] Transform[] m_ItemSpawnPoints;
 
     [SerializeField] GameObject m_CanvaEndGame;
     public int CurrentWaveIndex { get; private set; }
+    public Wave CurrentWave; // { get; private set; }
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
@@ -44,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     public float GetActiveTime() => Time.time - _startTime;
 
-    public GameObject[] GetCurrentWaveMobList() => m_WaveList[CurrentWaveIndex].MobList;
+    public List<GameObject> GetCurrentWaveMobList() => CurrentWave.MobList;
     #endregion
 
     #region Setter
@@ -67,7 +71,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Score = 0;
-        CurrentWaveIndex = -1;
+        CurrentWaveIndex = 0;
         _startTime = Time.time;
         _currentGameState = GameState.StartWave;
     }
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
         e.enabled = activate;
-        if (activate) e.SetSpawnRate(m_WaveList[CurrentWaveIndex].SpawnRate);
+        if (activate) e.SetSpawnRate(CurrentWave.SpawnRate);
     }
 
     public void Update()
@@ -96,11 +100,28 @@ public class GameManager : MonoBehaviour
     }
 
     #region Wave Handle
+    private void GenerateWave()
+    {
+        Wave wave = Wave.CreateInstance<Wave>();
+        float spawnrate = 1 - (CurrentWaveIndex / 20);
+        wave.SpawnRate = Mathf.Max(0.1f, spawnrate);
+        wave.WaveDuration = 5 + (CurrentWaveIndex / 2);
+        for (int i = 0; i < m_MobList.Length; i++)
+        {
+            //print(CurrentWaveIndex + " >= " + (i * i));
+            //if (CurrentWaveIndex-1 >= i * i) break;
+            print(m_MobList[i].name);
+            wave.MobList.Append(m_MobList[i]);
+            print(wave.MobList);
+        }
+        CurrentWave = wave;
+    }
     private void WillStartWave(float timeBefore)
     {
         KillItemHolder();
         CurrentWaveIndex++;
-        UIManager.Instance.MakeAnnoucement("Start of Wave " + (CurrentWaveIndex + 1));
+        GenerateWave();
+        UIManager.Instance.MakeAnnoucement("Start of Wave " + (CurrentWaveIndex));
         Invoke(nameof(StartWave), timeBefore);
         _currentGameState = GameState.InWave;
     }
@@ -109,7 +130,7 @@ public class GameManager : MonoBehaviour
     {
         if (!m_ActivateSpawner) return;
         ActivateSpawner();
-        Invoke(nameof(StopSpawn), m_WaveList[CurrentWaveIndex].WaveDuration);
+        Invoke(nameof(StopSpawn), CurrentWave.WaveDuration);
     }
 
     private void StopSpawn()
