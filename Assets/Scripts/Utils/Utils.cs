@@ -104,14 +104,18 @@ namespace Utils
 
     public class Math
     {
+        public static float Percentage(float init, float percent)
+        {
+            return (percent * init / 100);
+        }
         public static float AddPercentage(float init, float percent)
         {
-            return init + (percent * init / 100);
+            return init + Percentage(init, percent);
         }
 
         public static int AddPercentage(int init, float percent)
         {
-            return (int)(init + (percent * init / 100));
+            return (int)(init + Percentage(init, percent));
         }
     }
 }

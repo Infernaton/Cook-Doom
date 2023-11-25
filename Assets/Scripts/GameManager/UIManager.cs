@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     void UpdateHealth()
     {
         PlayerController p = _gm.Player();
-        m_HealthUI.text = string.Format("Health: {0:0} / {1:0}", p.GetCurrentHealth(), p.GetHealthBase());
+        m_HealthUI.text = string.Format("Health: {0:0} / {1:0}", p.GetCurrentHealth(), p.GetMaxHealth());
     }
 
     void UpdateScore()

@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject m_Spawner;
     [SerializeField] bool m_ActivateSpawner;
     [SerializeField] float m_TimeBeforeWave;
-    [SerializeField] Wave[] m_WaveList;
-    [SerializeField] GameObject[] m_MobList;
+    [SerializeField] List<GameObject> m_MobList;
     [SerializeField] GameObject m_ItemHolderPrefab;
     [SerializeField] Transform[] m_ItemSpawnPoints;
 
@@ -103,17 +102,18 @@ public class GameManager : MonoBehaviour
     private void GenerateWave()
     {
         Wave wave = Wave.CreateInstance<Wave>();
-        float spawnrate = 1 - (CurrentWaveIndex / 20);
+        float spawnrate = 1f - (CurrentWaveIndex / 20f);
         wave.SpawnRate = Mathf.Max(0.1f, spawnrate);
-        wave.WaveDuration = 5 + (CurrentWaveIndex / 2);
-        for (int i = 0; i < m_MobList.Length; i++)
-        {
-            //print(CurrentWaveIndex + " >= " + (i * i));
-            //if (CurrentWaveIndex-1 >= i * i) break;
-            print(m_MobList[i].name);
-            wave.MobList.Append(m_MobList[i]);
-            print(wave.MobList);
-        }
+        wave.WaveDuration = 5f + (CurrentWaveIndex / 2f);
+        wave.MobList = m_MobList;
+        //for (int i = 0; i < m_MobList.Count; i++)
+        //{
+        //    //print(CurrentWaveIndex + " >= " + (i * i));
+        //    //if (CurrentWaveIndex-1 >= i * i) break;
+        //    print(m_MobList[i].name);
+        //    wave.MobList.Append(m_MobList[i]);
+        //    print(wave.MobList);
+        //}
         CurrentWave = wave;
     }
     private void WillStartWave(float timeBefore)
@@ -142,16 +142,9 @@ public class GameManager : MonoBehaviour
 
     private void EndWave()
     {
-        //If no wave left, end the game
-        if (m_WaveList.Length <= CurrentWaveIndex + 1)
-        {
-            EndGame();
-        } else
-        {
-            UIManager.Instance.DisplayNextWaveButton();
-            SpawnNewItemHolder();
-            _currentGameState = GameState.WaitNextWave;
-        }
+        UIManager.Instance.DisplayNextWaveButton();
+        SpawnNewItemHolder();
+        _currentGameState = GameState.WaitNextWave;
     }
 
     // Click on NextWaveButton

@@ -13,11 +13,15 @@ namespace Entity
 
         private float _startInvincibility;
         protected float _currentHealth;
+        protected float _currentMaxHealth;
         private bool _isDead;
+
+        public float GetMaxHealth() => _currentMaxHealth;
 
         protected void _startLifeForm()
         {
             _currentHealth = m_HealthBase;
+            _currentMaxHealth = m_HealthBase;
         }
 
         protected void _updateLifeForm()
@@ -47,7 +51,7 @@ namespace Entity
 
         public void UpdateCurrentHealth(float newCurrentHealth)
         {
-            _currentHealth = Mathf.Min(newCurrentHealth, m_HealthBase);
+            _currentHealth = Mathf.Min(newCurrentHealth, _currentMaxHealth);
         }
     }
 

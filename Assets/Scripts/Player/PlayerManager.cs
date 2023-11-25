@@ -30,10 +30,6 @@ public class PlayerController : LifeFormManager
     private ProjectileModifier _projModifierMerge;
 
     #region get
-    public float GetHealthBase()
-    {
-        return Math.AddPercentage(m_HealthBase, _playerModifierMerge.MaxHealth);
-    }
     public float GetCurrentHealth()
     {
         return _currentHealth;
@@ -48,6 +44,15 @@ public class PlayerController : LifeFormManager
     {
         if (mod is PlayerModifier playerMod)
         {
+            //When upgrading the player maxhealth we heal a portion of its current HP
+            //Current issue -> MaxHealth is a percentage but InstantHeal(float recover) take an amount of HP the player gain
+            if (playerMod.MaxHealth > 0)
+            {
+                float addedHealth = Math.Percentage(m_HealthBase, playerMod.MaxHealth);
+                _currentMaxHealth += addedHealth;
+                InstantHeal(addedHealth);
+            }
+
             m_PlayerModifierList.Add(playerMod);
             _playerModifierMerge = MergeAllPlayerModifier();
         } 
