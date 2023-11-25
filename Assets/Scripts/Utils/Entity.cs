@@ -28,7 +28,7 @@ namespace Entity
         protected void _updateLifeForm()
         {
             if (_startInvincibility > 0f) _startInvincibility -= Time.deltaTime;
-            if (_currentHealth <= 0 && m_OnDying != null && !_isDead)
+            if ((_currentHealth <= 0 && m_OnDying != null && !_isDead) || ( transform.position.y <= -1 ))
             {
                 _isDead = true;
                 m_OnDying.Invoke();

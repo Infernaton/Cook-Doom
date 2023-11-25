@@ -85,9 +85,6 @@ public class PlayerController : LifeFormManager
         if (_isShooting && (Time.time - _lastSpawn >= 1f / Math.AddPercentage(m_FireRate, _playerModifierMerge.FireRate))) SpawnProjectile();
         _updateLifeForm();
         UpdateLookAt();
-
-        if (transform.position.y < -1)
-            gm.EndGame();
     }
 
     private void SpawnProjectile()

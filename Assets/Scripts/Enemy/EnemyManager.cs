@@ -41,9 +41,6 @@ public class EnemyManager : LifeFormManager
             transform.LookAt(_target.transform);
             _updateLifeForm();
         }
-
-        if (transform.position.y < -1)
-            OnDeath();
     }
     private void OnCollisionEnter(Collision c)
     {
