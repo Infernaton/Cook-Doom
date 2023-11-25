@@ -30,14 +30,12 @@ public class PlayerController : LifeFormManager
     private ProjectileModifier _projModifierMerge;
 
     #region get
-    public float GetCurrentHealth()
-    {
-        return _currentHealth;
-    }
     public float GetProtectionRadius()
     {
         return Math.AddPercentage(m_ProtectionRadius, _playerModifierMerge.ProtectionRadius);
     }
+
+    public int GetTotalItem() => m_PlayerModifierList.Count + m_ProjectileModifierList.Count;
     #endregion
 
     public void AddModifier(Modifier mod)
@@ -87,6 +85,9 @@ public class PlayerController : LifeFormManager
         if (_isShooting && (Time.time - _lastSpawn >= 1f / Math.AddPercentage(m_FireRate, _playerModifierMerge.FireRate))) SpawnProjectile();
         _updateLifeForm();
         UpdateLookAt();
+
+        if (transform.position.y < -1)
+            gm.EndGame();
     }
 
     private void SpawnProjectile()

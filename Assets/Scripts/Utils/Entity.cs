@@ -17,6 +17,7 @@ namespace Entity
         private bool _isDead;
 
         public float GetMaxHealth() => _currentMaxHealth;
+        public float GetCurrentHealth() => _currentHealth;
 
         protected void _startLifeForm()
         {

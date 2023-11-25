@@ -50,7 +50,7 @@ public class ItemHolder : MonoBehaviour
     {
         gm = GameManager.Instance;
         _currentItem = GenHoldingItem();
-        _cost = _currentItem.Rarity * _currentItem.Rarity;
+        _cost = _currentItem.Rarity * _currentItem.Rarity * ((gm.Player().GetTotalItem() / 10) + 1);
 
         m_Renderer.material = SelectColor(_currentItem.Rarity);
 
