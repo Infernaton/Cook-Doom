@@ -28,12 +28,13 @@ namespace Entity
         protected void _updateLifeForm()
         {
             if (_startInvincibility > 0f) _startInvincibility -= Time.deltaTime;
-            if ((_currentHealth <= 0 && m_OnDying != null && !_isDead) || ( transform.position.y <= -1 ))
+            if ((_currentHealth <= 0 || transform.position.y <= -1 ) && m_OnDying != null && !_isDead)
             {
                 _isDead = true;
                 m_OnDying.Invoke();
             }
         }
+
         public void LoseHP(float damage)
         {
             if (_startInvincibility > 0f) return;

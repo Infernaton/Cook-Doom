@@ -2,7 +2,6 @@
 
 ## Important
 
-- Try to create an infinite level with custom auto generated wave
 - Save score to a leaderboard
 
 ## Not so Important

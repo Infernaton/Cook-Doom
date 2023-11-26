@@ -29,7 +29,7 @@ public class EnemyManager : LifeFormManager
     {
         if (GameManager.Instance.IsGameActive && !_onTarget)
         {
-            transform.position += transform.forward * m_MoveSpeed * Time.deltaTime;
+            transform.position += m_MoveSpeed * Time.deltaTime * transform.forward;
         }
     }
 

@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject m_CanvaEndGame;
     public int CurrentWaveIndex { get; private set; }
-    public Wave CurrentWave; // { get; private set; }
+    public Wave CurrentWave { get; private set; }
 
     public static GameManager Instance; // A static reference to the GameManager instance
 
