@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Utils;
+using System;
+using System.Reflection;
+using CustomAttribute;
 
 namespace Entity
 {
     public class LifeFormManager : MonoBehaviour
     {
-
         [SerializeField] protected float m_HealthBase;
         [SerializeField] protected float m_InvincibiltyTime;
         [SerializeField] protected UnityEvent m_OnDying;
@@ -59,7 +61,36 @@ namespace Entity
 
     public class Modifier : ScriptableObject
     {
-        [Range(1, 3)]
+        [Range(1, 3), UnDisplayable]
         public int Rarity = 1;
+
+        private string DefineSymbol(dynamic value)
+        {
+            if (value is float)
+                return value + " %";
+            if (value is int)
+                return "+ " + value;
+            return "";
+        }
+
+        public override string ToString()
+        {
+            object a = GetType();
+            FieldInfo[] fieldInfos = Type.GetType(a.ToString()).GetFields();
+
+            string s = "";
+            foreach ( FieldInfo f in fieldInfos)
+            {
+                dynamic value = f.GetValue(this);
+                if (value is float || value is int)
+                {
+                    if (value == null || value == 0) continue;
+                    if (Attribute.IsDefined(f, typeof(UnDisplayable))) continue;
+                    if (s.Length != 0) s += " | ";
+                    s += DefineSymbol(value) + " " + Translate.ModifierField(f.Name);
+                }
+            }
+            return s;
+        }
     }
 }

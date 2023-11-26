@@ -24,16 +24,13 @@ public class PlayerController : LifeFormManager
     [SerializeField] float m_ProjDamage;
     [SerializeField] int m_ProjPiercing;
 
+    public PlayerModifier PlayerModifierMerge { get; private set; }
     [SerializeField] List<PlayerModifier> m_PlayerModifierList;
-    private PlayerModifier _playerModifierMerge;
+    public ProjectileModifier ProjModifierMerge { get; private set; }
     [SerializeField] List<ProjectileModifier> m_ProjectileModifierList;
-    private ProjectileModifier _projModifierMerge;
 
     #region get
-    public float GetProtectionRadius()
-    {
-        return DMath.AddPercentage(m_ProtectionRadius, _playerModifierMerge.ProtectionRadius);
-    }
+    public float GetProtectionRadius() => DMath.AddPercentage(m_ProtectionRadius, PlayerModifierMerge.ProtectionRadius);
 
     public int GetTotalItem() => m_PlayerModifierList.Count + m_ProjectileModifierList.Count;
     #endregion
@@ -52,20 +49,20 @@ public class PlayerController : LifeFormManager
             }
 
             m_PlayerModifierList.Add(playerMod);
-            _playerModifierMerge = MergeAllPlayerModifier();
+            PlayerModifierMerge = MergeAllPlayerModifier();
         } 
         else if (mod is ProjectileModifier projMod)
         {
             m_ProjectileModifierList.Add(projMod);
-            _projModifierMerge = MergeAllProjModifier();
+            ProjModifierMerge = MergeAllProjModifier();
         }
     }
 
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _projModifierMerge = MergeAllProjModifier();
-        _playerModifierMerge = MergeAllPlayerModifier();
+        ProjModifierMerge = MergeAllProjModifier();
+        PlayerModifierMerge = MergeAllPlayerModifier();
     }
 
     private void Start()
@@ -76,33 +73,33 @@ public class PlayerController : LifeFormManager
 
     private void FixedUpdate()
     {
-        float moveSpeed = DMath.AddPercentage(m_MoveSpeed, _playerModifierMerge.MovementSpeed);
+        float moveSpeed = DMath.AddPercentage(m_MoveSpeed, PlayerModifierMerge.MovementSpeed);
         _rigidBody.velocity = new Vector3(moveSpeed * _movement.x, _rigidBody.velocity.y, moveSpeed * _movement.y);
     }
 
     void Update()
     {
-        if (_isShooting && (Time.time - _lastSpawn >= 1f / DMath.AddPercentage(m_FireRate, _playerModifierMerge.FireRate))) SpawnProjectile();
+        if (_isShooting && (Time.time - _lastSpawn >= 1f / DMath.AddPercentage(m_FireRate, PlayerModifierMerge.FireRate))) SpawnProjectile();
         _updateLifeForm();
         UpdateLookAt();
     }
 
     private void SpawnProjectile()
     {
-        for (int i = 0; i < _playerModifierMerge.NumberProjectile; i++)
+        for (int i = 0; i < PlayerModifierMerge.NumberProjectile; i++)
         {
             //Set the projectile all arround the player when getting a bonus
-            float degree = (360 / _playerModifierMerge.NumberProjectile) * i;
+            float degree = (360 / PlayerModifierMerge.NumberProjectile) * i;
             GameObject proj = Instantiate(m_Projectile, m_SpawnProjectile.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
             proj.transform.SetParent(transform.parent, true);
 
             ProjectileManager projManager = proj.GetComponent<ProjectileManager>();
-            projManager.Speed = DMath.AddPercentage(m_ProjSpeed, _projModifierMerge.MovingSpeed);
-            projManager.Damage = DMath.AddPercentage(m_ProjDamage, _projModifierMerge.Damage);
-            projManager.Piercing = DMath.AddPercentage(m_ProjPiercing, _projModifierMerge.Piercing);
+            projManager.Speed = DMath.AddPercentage(m_ProjSpeed, ProjModifierMerge.MovingSpeed);
+            projManager.Damage = DMath.AddPercentage(m_ProjDamage, ProjModifierMerge.Damage);
+            projManager.Piercing = DMath.AddPercentage(m_ProjPiercing, ProjModifierMerge.Piercing);
 
-            proj.transform.localScale += _projModifierMerge.Size * proj.transform.localScale / 100;
-            if (_projModifierMerge.NewColor != null) proj.GetComponent<Material>().color = (Color)_projModifierMerge.NewColor;
+            proj.transform.localScale += ProjModifierMerge.Size * proj.transform.localScale / 100;
+            if (ProjModifierMerge.NewColor != null) proj.GetComponent<Material>().color = (Color)ProjModifierMerge.NewColor;
         }
         _lastSpawn = Time.time;
     }
@@ -126,6 +123,7 @@ public class PlayerController : LifeFormManager
     private ProjectileModifier MergeAllProjModifier()
     {
         ProjectileModifier mod = ScriptableObject.CreateInstance<ProjectileModifier>();
+        mod.Rarity = 4;
         foreach (ProjectileModifier item in m_ProjectileModifierList)
         {
             if (item.ResetingProjectileModifier) mod = ScriptableObject.CreateInstance<ProjectileModifier>();
@@ -142,6 +140,7 @@ public class PlayerController : LifeFormManager
     private PlayerModifier MergeAllPlayerModifier()
     {
         PlayerModifier mod = ScriptableObject.CreateInstance<PlayerModifier>();
+        mod.Rarity = 4;
         foreach (PlayerModifier item in m_PlayerModifierList)
         {
             if (item.ResetingPlayerModifier) mod = ScriptableObject.CreateInstance<PlayerModifier>();
@@ -181,8 +180,8 @@ public class PlayerController : LifeFormManager
 
     private void OnDrawGizmosSelected()
     {
-        _projModifierMerge = MergeAllProjModifier();
-        _playerModifierMerge = MergeAllPlayerModifier();
+        ProjModifierMerge = MergeAllProjModifier();
+        PlayerModifierMerge = MergeAllPlayerModifier();
         Gizmos.color = new Color(1f, 0.8f, 0.1f, 0.3f);
         float corners = 4096; // How many corners the circle should have
         Vector3 origin = transform.position; // Where the circle will be drawn around

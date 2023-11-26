@@ -76,6 +76,7 @@ public class ItemHolder : MonoBehaviour
         {
             _isTriggerActive = true;
             StartCoroutine(Anim.FadeIn(0.5f, m_Title));
+            UIManager.Instance.DisplayDetails(_currentItem.ToString());
             UIManager.Instance.MakeTips("Press 'F' to Buy");
         }
     }
@@ -86,6 +87,7 @@ public class ItemHolder : MonoBehaviour
         {
             _isTriggerActive = false;
             StartCoroutine(Anim.FadeOut(0.5f, m_Title));
+            UIManager.Instance.HideDetails();
             UIManager.Instance.HideTips();
         }
     }

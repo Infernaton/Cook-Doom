@@ -118,4 +118,20 @@ namespace Utils
             return (int)(init + Percentage(init, percent));
         }
     }
+
+    public class Translate
+    {
+        public static string ModifierField(string fieldName)
+        {
+            return fieldName switch
+            {
+                "MovementSpeed" => "Mvt Speed",
+                "ProtectionRadius" => "Spawn Protection",
+                "MaxHealth" => "Max Health",
+                "FireRate" => "Fire Rate",
+                "Healing" => "♥",
+                _ => "",
+            };
+        }
+    }
 }

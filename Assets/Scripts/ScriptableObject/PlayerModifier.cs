@@ -1,5 +1,6 @@
 using UnityEngine;
 using Entity;
+using CustomAttribute;
 
 /**
  * Each modifier will add or remove stats for the player
@@ -13,7 +14,7 @@ public class PlayerModifier : Modifier
     public float MaxHealth;
     public float FireRate;
 
-    [Range(1, 5)]
+    [Range(1, 5), UnDisplayable]
     public int NumberProjectile = 1;
 
     public bool ResetingPlayerModifier = false;

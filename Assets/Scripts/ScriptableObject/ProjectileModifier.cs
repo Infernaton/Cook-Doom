@@ -1,5 +1,6 @@
 using UnityEngine;
 using Entity;
+using CustomAttribute;
 
 /**
  * Each modifier will add or remove stats for the projectile
@@ -16,7 +17,7 @@ public class ProjectileModifier : Modifier
 
     #region Customise attribute
     public float Size;
-    public Color? NewColor; //Depending on the assets found, might be useless
+    [UnDisplayable] public Color? NewColor; //Depending on the assets found, might be useless
     #endregion
 
     public float ExplosionRadius = 0; //Add later on
