@@ -32,7 +32,7 @@ public class PlayerController : LifeFormManager
     #region get
     public float GetProtectionRadius()
     {
-        return Math.AddPercentage(m_ProtectionRadius, _playerModifierMerge.ProtectionRadius);
+        return DMath.AddPercentage(m_ProtectionRadius, _playerModifierMerge.ProtectionRadius);
     }
 
     public int GetTotalItem() => m_PlayerModifierList.Count + m_ProjectileModifierList.Count;
@@ -46,7 +46,7 @@ public class PlayerController : LifeFormManager
             //Current issue -> MaxHealth is a percentage but InstantHeal(float recover) take an amount of HP the player gain
             if (playerMod.MaxHealth > 0)
             {
-                float addedHealth = Math.Percentage(m_HealthBase, playerMod.MaxHealth);
+                float addedHealth = DMath.Percentage(m_HealthBase, playerMod.MaxHealth);
                 _currentMaxHealth += addedHealth;
                 InstantHeal(addedHealth);
             }
@@ -76,13 +76,13 @@ public class PlayerController : LifeFormManager
 
     private void FixedUpdate()
     {
-        float moveSpeed = Math.AddPercentage(m_MoveSpeed, _playerModifierMerge.MovementSpeed);
+        float moveSpeed = DMath.AddPercentage(m_MoveSpeed, _playerModifierMerge.MovementSpeed);
         _rigidBody.velocity = new Vector3(moveSpeed * _movement.x, _rigidBody.velocity.y, moveSpeed * _movement.y);
     }
 
     void Update()
     {
-        if (_isShooting && (Time.time - _lastSpawn >= 1f / Math.AddPercentage(m_FireRate, _playerModifierMerge.FireRate))) SpawnProjectile();
+        if (_isShooting && (Time.time - _lastSpawn >= 1f / DMath.AddPercentage(m_FireRate, _playerModifierMerge.FireRate))) SpawnProjectile();
         _updateLifeForm();
         UpdateLookAt();
     }
@@ -97,9 +97,9 @@ public class PlayerController : LifeFormManager
             proj.transform.SetParent(transform.parent, true);
 
             ProjectileManager projManager = proj.GetComponent<ProjectileManager>();
-            projManager.Speed = Math.AddPercentage(m_ProjSpeed, _projModifierMerge.MovingSpeed);
-            projManager.Damage = Math.AddPercentage(m_ProjDamage, _projModifierMerge.Damage);
-            projManager.Piercing = Math.AddPercentage(m_ProjPiercing, _projModifierMerge.Piercing);
+            projManager.Speed = DMath.AddPercentage(m_ProjSpeed, _projModifierMerge.MovingSpeed);
+            projManager.Damage = DMath.AddPercentage(m_ProjDamage, _projModifierMerge.Damage);
+            projManager.Piercing = DMath.AddPercentage(m_ProjPiercing, _projModifierMerge.Piercing);
 
             proj.transform.localScale += _projModifierMerge.Size * proj.transform.localScale / 100;
             if (_projModifierMerge.NewColor != null) proj.GetComponent<Material>().color = (Color)_projModifierMerge.NewColor;

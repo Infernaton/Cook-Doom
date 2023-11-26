@@ -48,7 +48,7 @@ namespace Entity
         }
         public void InstantHealPercent(float recover)
         {
-            UpdateCurrentHealth(Math.AddPercentage(_currentHealth, recover));
+            UpdateCurrentHealth(DMath.AddPercentage(_currentHealth, recover));
         }
 
         public void UpdateCurrentHealth(float newCurrentHealth)

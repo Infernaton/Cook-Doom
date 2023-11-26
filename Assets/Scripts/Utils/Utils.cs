@@ -102,7 +102,7 @@ namespace Utils
         #endregion
     }
 
-    public class Math
+    public class DMath
     {
         public static float Percentage(float init, float percent)
         {
