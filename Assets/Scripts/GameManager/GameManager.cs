@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 
 public enum GameState
@@ -13,6 +16,18 @@ public enum GameState
     EndGame // End game state
 }
 
+[Serializable]
+public class FinalScore
+{
+    public int VegeScore;
+    public int Wave;
+    public float Time;
+}
+public class FinalScoreList
+{
+    public List<FinalScore> Scores;
+}
+
 public class GameManager : MonoBehaviour
 {
     public bool IsGameActive {
@@ -22,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         get { return _currentGameState == GameState.WaitNextWave; }
     }
-    public float Score { get; private set; }
+    public int Score { get; private set; }
 
     private float _startTime;
     private GameState _currentGameState;
@@ -37,6 +52,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform[] m_ItemSpawnPoints;
 
     [SerializeField] GameObject m_CanvaEndGame;
+
     public int CurrentWaveIndex { get; private set; }
     public Wave CurrentWave { get; private set; }
 
@@ -51,7 +67,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Setter
-    public void IncrementScore(float increment)
+    public void IncrementScore(int increment)
     {
         Score += increment;
     }
@@ -184,10 +200,20 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         UIManager.Instance.MakeAnnoucement("Good Job !");
-        Debug.Log("End Game");
         CancelInvoke();
         _currentGameState = GameState.EndGame;
         ActivateSpawner(false);
         m_CanvaEndGame.SetActive(true);
+        string text = File.ReadAllText(Application.dataPath + "/final_score.json");
+        FinalScoreList myObject = JsonUtility.FromJson<FinalScoreList>(text);
+        FinalScore fs = new()
+        {
+            VegeScore = Score,
+            Time = GetActiveTime(),
+            Wave = CurrentWaveIndex,
+        };
+        myObject.Scores.Add(fs);
+        string savedScore = JsonUtility.ToJson(myObject);
+        File.WriteAllText(Application.dataPath + "/final_score.json", savedScore);
     }
 }

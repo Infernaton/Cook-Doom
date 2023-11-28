@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour
         float time = _gm.GetActiveTime();
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
-        //m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     private void UpdateWave()

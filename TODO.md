@@ -2,11 +2,10 @@
 
 ## Important
 
-- Save score to a leaderboard
+- Save score to a leaderboard // TEST + show it in main menu
 
 ## Not so Important
 
-- Add description to item we can buy to specify what it does
 - Add particule effect / Animation to mob or player
 - Change UI in game
 

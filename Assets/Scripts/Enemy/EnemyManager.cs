@@ -4,19 +4,17 @@ using Utils;
 
 public class EnemyManager : LifeFormManager
 {
-    private Rigidbody _rigidBody;
     private GameObject _target;
 
     [SerializeField] float m_MoveSpeed;
     [SerializeField] Target m_Target;
-    [SerializeField] float m_GoldReward;
+    [SerializeField] int m_GoldReward;
     [SerializeField] float m_Damage;
 
     private bool _onTarget;
 
     void Awake()
     {
-        _rigidBody = GetComponent<Rigidbody>();
         _target = TargetManager.Instance.GetGameObject(m_Target);
     }
 
