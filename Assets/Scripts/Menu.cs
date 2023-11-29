@@ -29,8 +29,8 @@ public class Menu : MonoBehaviour
 
     IEnumerator FadeTransition(string scene)
     {
-        StartCoroutine(Anim.FadeIn(1f, m_BlackScreen));
-        yield return new WaitForSeconds(1f);
+        StartCoroutine(Anim.FadeIn(0.3f, m_BlackScreen));
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(scene);
     }
 
