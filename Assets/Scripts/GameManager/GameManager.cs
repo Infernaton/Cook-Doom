@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using UnityEngine;
+using Utils;
 
 public enum GameState
 {
@@ -22,10 +23,6 @@ public class FinalScore
     public int VegeScore;
     public int Wave;
     public float Time;
-}
-public class FinalScoreList
-{
-    public List<FinalScore> Scores;
 }
 
 public class GameManager : MonoBehaviour
@@ -204,16 +201,12 @@ public class GameManager : MonoBehaviour
         _currentGameState = GameState.EndGame;
         ActivateSpawner(false);
         m_CanvaEndGame.SetActive(true);
-        string text = File.ReadAllText(Application.dataPath + "/final_score.json");
-        FinalScoreList myObject = JsonUtility.FromJson<FinalScoreList>(text);
         FinalScore fs = new()
         {
             VegeScore = Score,
             Time = GetActiveTime(),
             Wave = CurrentWaveIndex,
         };
-        myObject.Scores.Add(fs);
-        string savedScore = JsonUtility.ToJson(myObject);
-        File.WriteAllText(Application.dataPath + "/final_score.json", savedScore);
+        JsonFile.AddData(Application.dataPath + "/final_score.json", fs);
     }
 }

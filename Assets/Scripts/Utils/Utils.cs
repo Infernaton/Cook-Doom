@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -132,6 +134,32 @@ namespace Utils
                 "Healing" => "♥",
                 _ => "",
             };
+        }
+    }
+
+    public class JsonFile
+    {
+        public class FinalScoreList
+        {
+            public List<FinalScore> Scores;
+        }
+        public static void AddData(string path, FinalScore dataToAdd)
+        {
+            FinalScoreList storedData = GetStoredData(path);
+            storedData.Scores.Add(dataToAdd);
+            string savedScore = JsonUtility.ToJson(storedData);
+            File.WriteAllText(path, savedScore);
+        }
+
+        private static FinalScoreList GetStoredData(string path)
+        {
+            if (!File.Exists(path)) return new()
+            {
+                Scores = new List<FinalScore>()
+            };
+
+            string text = File.ReadAllText(path);
+            return JsonUtility.FromJson<FinalScoreList>(text);
         }
     }
 }
