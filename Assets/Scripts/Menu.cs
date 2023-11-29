@@ -24,7 +24,7 @@ public class Menu : MonoBehaviour
 
     public void LeaderBoard()
     {
-        StartCoroutine(FadeTransition("MenuScene"));
+        StartCoroutine(FadeTransition("LeaderboardScene"));
     }
 
     IEnumerator FadeTransition(string scene)
