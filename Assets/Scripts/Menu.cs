@@ -1,19 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Utils;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] RawImage m_BlackScreen;
+
+    public void Start()
+    {
+        StartCoroutine(Anim.FadeOut(1f, m_BlackScreen));
+    }
     public void Play()
     {
-        //Load game scene
-        SceneManager.LoadScene("MainScene");
+        StartCoroutine(FadeTransition("MainScene"));
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MenuScene");
+        StartCoroutine(FadeTransition("MenuScene"));
+    }
+
+    public void LeaderBoard()
+    {
+        StartCoroutine(FadeTransition("MenuScene"));
+    }
+
+    IEnumerator FadeTransition(string scene)
+    {
+        StartCoroutine(Anim.FadeIn(1f, m_BlackScreen));
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(scene);
     }
 
     public void Quit()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Utils
 {
@@ -100,6 +102,30 @@ namespace Utils
                 yield return null;
             }
             c.gameObject.SetActive(false);
+        }
+        #endregion
+
+        #region RawImage
+        public static IEnumerator FadeIn(float t, RawImage i)
+        {
+            i.gameObject.SetActive(true);
+            i.color = new Color(i.color.r, i.color.g, i.color.b, 0);
+            while (i.color.a < 1.0f)
+            {
+                i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a + (Time.deltaTime / t));
+                yield return null;
+            }
+        }
+
+        public static IEnumerator FadeOut(float t, RawImage i)
+        {
+            i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
+            while (i.color.a > 0.0f)
+            {
+                i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
+                yield return null;
+            }
+            i.gameObject.SetActive(false);
         }
         #endregion
     }
