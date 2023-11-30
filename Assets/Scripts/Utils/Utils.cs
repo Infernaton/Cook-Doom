@@ -4,10 +4,16 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Utils
 {
+    public class Constants
+    {
+        public static string GetPathFinalScore()
+        {
+            return Application.dataPath + "/final_score.json";
+        }
+    }
     public class Area
     {
         public static Vector3 GetRandomCoord(Bounds b)
@@ -145,6 +151,13 @@ namespace Utils
         {
             return (int)(init + Percentage(init, percent));
         }
+
+        public static string TimeToString(float time)
+        {
+            float minutes = Mathf.FloorToInt(time / 60);
+            float seconds = Mathf.FloorToInt(time % 60);
+            return string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     public class Translate
@@ -177,7 +190,7 @@ namespace Utils
             File.WriteAllText(path, savedScore);
         }
 
-        private static FinalScoreList GetStoredData(string path)
+        public static FinalScoreList GetStoredData(string path)
         {
             if (!File.Exists(path)) return new()
             {

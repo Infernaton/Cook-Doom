@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml.Linq;
 using UnityEngine;
 using Utils;
 
@@ -207,6 +204,6 @@ public class GameManager : MonoBehaviour
             Time = GetActiveTime(),
             Wave = CurrentWaveIndex,
         };
-        JsonFile.AddData(Application.dataPath + "/final_score.json", fs);
+        JsonFile.AddData(Constants.GetPathFinalScore(), fs);
     }
 }

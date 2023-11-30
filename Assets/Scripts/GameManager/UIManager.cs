@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Utils;
 
 public class UIManager : MonoBehaviour
@@ -63,10 +62,7 @@ public class UIManager : MonoBehaviour
     // Since we pass wave using a entry input, it's not necessary to display the time played
     private void UpdateTime()
     {
-        float time = _gm.GetActiveTime();
-        float minutes = Mathf.FloorToInt(time / 60);
-        float seconds = Mathf.FloorToInt(time % 60);
-        m_TimeUI.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        m_TimeUI.text = DMath.TimeToString(_gm.GetActiveTime());
     }
 
     private void UpdateWave()
