@@ -18,6 +18,7 @@ public enum GameState
 public class FinalScore
 {
     public int VegeScore;
+    public string PlayerName;
     public int Wave;
     public float Time;
 }
@@ -203,6 +204,7 @@ public class GameManager : MonoBehaviour
             VegeScore = Score,
             Time = GetActiveTime(),
             Wave = CurrentWaveIndex,
+            PlayerName = "Player"
         };
         JsonFile.AddData(Constants.GetPathFinalScore(), fs);
     }
