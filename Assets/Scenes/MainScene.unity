@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 423099745}
   m_Spawner: {fileID: 484953125}
-  m_ActivateSpawner: 0
+  m_ActivateSpawner: 1
   m_TimeBeforeWave: 4
   m_MobList:
   - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
@@ -3509,7 +3509,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1943119223
 RectTransform:
   m_ObjectHideFlags: 0
