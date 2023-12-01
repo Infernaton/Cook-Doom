@@ -17,7 +17,7 @@ public class LeaderboardManager : MonoBehaviour
         {
             ScoreUI sc = Instantiate(m_ScoreUIPrefab, m_LeaderboardList.transform);
             sc.SetTexts(list.Scores[i]);
-            sc.transform.position = new Vector3(0f, i * transform.lossyScale.y, 0f);
+            sc.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -i * sc.GetComponent<RectTransform>().rect.height);
         }
     }
 }
