@@ -14,6 +14,6 @@ public class ScoreUI : MonoBehaviour
         m_Wave.text = fs.Wave.ToString();
         m_Score.text = fs.VegeScore.ToString();
 
-        m_PlayerName.text = "Player"; // No name is registered for now
+        m_PlayerName.text = fs.PlayerName;
     }
 }
