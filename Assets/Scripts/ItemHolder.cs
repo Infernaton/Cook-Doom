@@ -76,7 +76,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = true;
-            StartCoroutine(Anim.FadeIn(0.5f, m_Title));
+            StartCoroutine(Anim.FadeIn(0.2f, m_Title));
             UIManager.Instance.DisplayDetails(_currentItem.ToString());
             UIManager.Instance.MakeTips("Press 'F' to Buy");
         }
@@ -87,7 +87,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = false;
-            StartCoroutine(Anim.FadeOut(0.5f, m_Title));
+            StartCoroutine(Anim.FadeOut(0.1f, m_Title));
             UIManager.Instance.HideDetails();
             UIManager.Instance.HideTips();
         }

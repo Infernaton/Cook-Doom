@@ -81,23 +81,23 @@ public class UIManager : MonoBehaviour
     public void DisplayDetails(string message)
     {
         m_Details.text = message;
-        StartCoroutine(Anim.FadeIn(0.5f, m_Details));
+        StartCoroutine(Anim.FadeIn(0.1f, m_Details));
     }
 
     public void HideDetails()
     {
-        StartCoroutine(Anim.FadeOut(0.25f, m_Details));
+        StartCoroutine(Anim.FadeOut(0.05f, m_Details));
     }
 
     public void MakeTips(string message)
     {
         m_Tips.text = message;
-        StartCoroutine(Anim.FadeIn(0.5f, m_Tips));
+        StartCoroutine(Anim.FadeIn(0.1f, m_Tips));
     }
 
     public void HideTips()
     {
-        StartCoroutine(Anim.FadeOut(0.25f, m_Tips));
+        StartCoroutine(Anim.FadeOut(0.05f, m_Tips));
     }
 
     public void DisplayNextWaveButton()
