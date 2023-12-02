@@ -1,6 +1,8 @@
 using UnityEngine;
 using Entity;
 using Utils;
+using System.Collections;
+using static Unity.VisualScripting.Member;
 
 public class EnemyManager : LifeFormManager
 {
@@ -10,6 +12,7 @@ public class EnemyManager : LifeFormManager
     [SerializeField] Target m_Target;
     [SerializeField] int m_GoldReward;
     [SerializeField] float m_Damage;
+    [SerializeField] AudioSource m_DeathSound;
 
     private bool _onTarget;
 
@@ -58,7 +61,18 @@ public class EnemyManager : LifeFormManager
 
     public void OnDeath()
     {
-        Destroy(gameObject);
+        m_DeathSound.Play();
+        Destroy(gameObject,0.2f);
         GameManager.Instance.IncrementScore(m_GoldReward);
+    }
+
+    IEnumerator PlaySound()
+    {
+        while (m_DeathSound.isPlaying)
+        {
+            yield return null;
+        }
+
+        Destroy(gameObject);
     }
 }

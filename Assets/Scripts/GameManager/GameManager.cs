@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     #region Wave Handle
     private void GenerateWave()
     {
-        Wave wave = Wave.CreateInstance<Wave>();
+        Wave wave = ScriptableObject.CreateInstance<Wave>();
         float spawnrate = 1f - (CurrentWaveIndex / 20f);
         wave.SpawnRate = Mathf.Max(0.1f, spawnrate);
         wave.WaveDuration = 5f + (CurrentWaveIndex / 2f);
