@@ -66,7 +66,6 @@ public class ItemHolder : MonoBehaviour
             if (_currentItem is InstantHeal heal) gm.Player().InstantHeal(heal.Healing);
             else gm.Player().AddModifier(_currentItem);
             UIManager.Instance.HideDetails();
-            UIManager.Instance.HideTips();
             Destroy(gameObject);
         }
     }
@@ -78,7 +77,7 @@ public class ItemHolder : MonoBehaviour
             _isTriggerActive = true;
             StartCoroutine(Anim.FadeIn(0.2f, m_Title));
             UIManager.Instance.DisplayDetails(_currentItem.ToString());
-            UIManager.Instance.MakeTips("Press 'F' to Buy");
+            //UIManager.Instance.MakeTips("Press 'F' to Buy");
         }
     }
 
@@ -89,7 +88,6 @@ public class ItemHolder : MonoBehaviour
             _isTriggerActive = false;
             StartCoroutine(Anim.FadeOut(0.1f, m_Title));
             UIManager.Instance.HideDetails();
-            UIManager.Instance.HideTips();
         }
     }
 }

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utils;
 
 public class UIManager : MonoBehaviour
@@ -11,8 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text m_WaveUI;
     [SerializeField] TMP_Text m_Announcement;
     [SerializeField] TMP_Text m_Details;
-    [SerializeField] TMP_Text m_Tips;
     [SerializeField] CanvasGroup m_NextWave;
+
+    private Image parentDetails;
 
     public static UIManager Instance; // A static reference to the UIManager instance
     void Awake()
@@ -30,8 +32,9 @@ public class UIManager : MonoBehaviour
     {
         _gm = GameManager.Instance;
         m_Announcement.enabled = false;
-        m_Tips.enabled = false;
-        m_Details.enabled = false;
+        //m_Details.enabled = false;
+        parentDetails = m_Details.transform.parent.gameObject.GetComponent<Image>();
+        parentDetails.gameObject.SetActive(false);
         m_NextWave.gameObject.SetActive(false);
     }
 
@@ -78,28 +81,20 @@ public class UIManager : MonoBehaviour
         StartCoroutine(Anim.FadeOut(3f, m_Announcement));
     }
 
+    #region Details
     public void DisplayDetails(string message)
     {
         m_Details.text = message;
-        StartCoroutine(Anim.FadeIn(0.1f, m_Details));
+        StartCoroutine(Anim.FadeIn(0.1f, parentDetails));
     }
 
     public void HideDetails()
     {
-        StartCoroutine(Anim.FadeOut(0.05f, m_Details));
+        StartCoroutine(Anim.FadeOut(0.05f, parentDetails));
     }
+    #endregion
 
-    public void MakeTips(string message)
-    {
-        m_Tips.text = message;
-        StartCoroutine(Anim.FadeIn(0.1f, m_Tips));
-    }
-
-    public void HideTips()
-    {
-        StartCoroutine(Anim.FadeOut(0.05f, m_Tips));
-    }
-
+    #region Next Button
     public void DisplayNextWaveButton()
     {
         StartCoroutine(Anim.FadeIn(1f, m_NextWave));
@@ -109,4 +104,5 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(Anim.FadeOut(0.5f, m_NextWave));
     }
+    #endregion
 }
