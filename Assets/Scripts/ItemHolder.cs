@@ -2,6 +2,7 @@ using Entity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Utils;
 
 public class ItemHolder : MonoBehaviour
@@ -18,6 +19,8 @@ public class ItemHolder : MonoBehaviour
     private Modifier _currentItem;
     private bool _isTriggerActive;
     private int _cost;
+
+    private RawImage parentTitle;
 
     private GameManager gm;
 
@@ -43,7 +46,8 @@ public class ItemHolder : MonoBehaviour
 
     private void Awake()
     {
-        m_Title.enabled = false;
+        parentTitle = m_Title.transform.parent.GetComponent<RawImage>();
+        parentTitle.gameObject.SetActive(false);
     }
 
     void Start()
@@ -55,7 +59,7 @@ public class ItemHolder : MonoBehaviour
         m_Renderer.material = SelectColor(_currentItem.Rarity);
 
         m_Title.text = _currentItem.name + " Cost: " + _cost + "VGs";
-        m_Title.material = SelectColor(_currentItem.Rarity);
+        m_Title.color = SelectColor(_currentItem.Rarity).color;
     }
 
     void Update()
@@ -75,7 +79,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = true;
-            StartCoroutine(Anim.FadeIn(0.2f, m_Title));
+            StartCoroutine(Anim.FadeIn(0.2f, parentTitle));
             UIManager.Instance.DisplayDetails(_currentItem.ToString());
             //UIManager.Instance.MakeTips("Press 'F' to Buy");
         }
@@ -86,7 +90,7 @@ public class ItemHolder : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isTriggerActive = false;
-            StartCoroutine(Anim.FadeOut(0.1f, m_Title));
+            StartCoroutine(Anim.FadeOut(0.1f, parentTitle));
             UIManager.Instance.HideDetails();
         }
     }
