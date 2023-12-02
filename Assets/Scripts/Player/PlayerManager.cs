@@ -180,7 +180,6 @@ public class PlayerController : LifeFormManager
 
     private void OnDrawGizmosSelected()
     {
-        ProjModifierMerge = MergeAllProjModifier();
         PlayerModifierMerge = MergeAllPlayerModifier();
         Gizmos.color = new Color(1f, 0.8f, 0.1f, 0.3f);
         float corners = 4096; // How many corners the circle should have

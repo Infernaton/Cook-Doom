@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
 
     void UpdateScore()
     {
-        m_ScoreUI.text = string.Format("VegeScore: {0:0}", _gm.Score);
+        m_ScoreUI.text = string.Format("{0:0} VGs", _gm.Score);
     }
 
     // Since we pass wave using a entry input, it's not necessary to display the time played

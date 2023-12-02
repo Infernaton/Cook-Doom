@@ -10,13 +10,13 @@ using CustomAttribute;
 public class ProjectileModifier : Modifier
 {
     #region Stat attribute
-    public float MovingSpeed;
-    public float Damage;
-    public int Piercing;
+    public float MovingSpeed = 0;
+    public float Damage = 0;
+    public int Piercing = 0;
     #endregion
 
     #region Customise attribute
-    public float Size;
+    public float Size = 0;
     [UnDisplayable] public Color? NewColor; //Depending on the assets found, might be useless
     #endregion
 

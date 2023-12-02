@@ -193,6 +193,10 @@ namespace Utils
                 "MaxHealth" => "Max Health",
                 "FireRate" => "Fire Rate",
                 "Healing" => "♥",
+                "MovingSpeed" => "Proj Speed",
+                "Damage" => "Damage",
+                "Piercing" => "Piercing",
+                "Size" => "Proj size",
                 _ => "",
             };
         }

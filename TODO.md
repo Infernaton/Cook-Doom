@@ -2,8 +2,6 @@
 
 ## Important
 
-- Save score to a leaderboard // TEST + show it in main menu
-
 ## Not so Important
 
 - Add particule effect / Animation to mob or player

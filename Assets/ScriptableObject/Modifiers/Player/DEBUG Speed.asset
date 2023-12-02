@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b35a979fc99d93c4d8ad81dbfba6a736, type: 3}
-  m_Name: Heal2
+  m_Script: {fileID: 11500000, guid: 76b982931a8c1ce40b3eade4365f409c, type: 3}
+  m_Name: DEBUG Speed
   m_EditorClassIdentifier: 
-  Rarity: 2
-  Healing: 2
+  Rarity: 1
+  MovementSpeed: 200
+  ProtectionRadius: 0
+  MaxHealth: 0
+  FireRate: 0
+  NumberProjectile: 1
+  ResetingPlayerModifier: 0
