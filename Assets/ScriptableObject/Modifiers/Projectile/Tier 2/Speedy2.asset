@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0fbd0c7ceee3d344b9d57c2f692dce87, type: 3}
-  m_Name: ReverseSpeed
+  m_Name: Speedy2
   m_EditorClassIdentifier: 
   Rarity: 2
-  MovingSpeed: -140
-  Damage: 25
-  Piercing: 0
+  MovingSpeed: 25
+  Damage: 0
+  Piercing: 25
   Size: 0
   ExplosionRadius: 0
-  ResetingProjectileModifier: 1
+  ResetingProjectileModifier: 0

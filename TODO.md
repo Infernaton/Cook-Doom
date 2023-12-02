@@ -6,6 +6,7 @@
 
 - Add particule effect / Animation to mob or player
 - Change UI in game
+- Encript JSON Leaderboard
 
 ## Bonus
 

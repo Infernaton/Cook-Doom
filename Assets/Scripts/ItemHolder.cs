@@ -69,7 +69,6 @@ public class ItemHolder : MonoBehaviour
             gm.IncrementScore(-_cost);
             if (_currentItem is InstantHeal heal) gm.Player().InstantHeal(heal.Healing);
             else gm.Player().AddModifier(_currentItem);
-            UIManager.Instance.HideDetails();
             Destroy(gameObject);
         }
     }
@@ -93,5 +92,10 @@ public class ItemHolder : MonoBehaviour
             StartCoroutine(Anim.FadeOut(0.1f, parentTitle));
             UIManager.Instance.HideDetails();
         }
+    }
+
+    public void OnDestroy()
+    {
+        UIManager.Instance.HideDetails();
     }
 }

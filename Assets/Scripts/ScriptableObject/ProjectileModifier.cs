@@ -12,7 +12,7 @@ public class ProjectileModifier : Modifier
     #region Stat attribute
     public float MovingSpeed = 0;
     public float Damage = 0;
-    public int Piercing = 0;
+    public float Piercing = 0;
     #endregion
 
     #region Customise attribute
