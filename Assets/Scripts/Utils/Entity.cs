@@ -42,6 +42,9 @@ namespace Entity
             if (_startInvincibility > 0f) return;
             _currentHealth -= damage;
             _startInvincibility = m_InvincibiltyTime;
+
+            if (m_InvincibiltyTime > 0f)
+                StartCoroutine(Anim.Blink(gameObject, m_InvincibiltyTime));
         }
 
         public void InstantHeal(float recover)

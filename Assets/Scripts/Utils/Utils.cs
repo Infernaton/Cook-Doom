@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -158,6 +159,26 @@ namespace Utils
             i.gameObject.SetActive(false);
         }
         #endregion
+
+        public static IEnumerator Blink(GameObject obj, float time)
+        {
+            Renderer[] objectRenderers = obj.GetComponentsInChildren<Renderer>();
+            bool switchAnim = true;
+            float endTime = Time.time + time;
+            while (endTime > Time.time)
+            {
+                switchAnim = !switchAnim;
+                BlinkAnim(objectRenderers, switchAnim);
+                yield return new WaitForSeconds(0.05f);
+            }
+            BlinkAnim(objectRenderers, true);
+        }
+
+        private static void BlinkAnim(Renderer[] objectRenderers, bool hasToRender)
+        {
+            foreach (Renderer r in objectRenderers)
+                r.enabled = hasToRender;
+        }
     }
 
     public class DMath
