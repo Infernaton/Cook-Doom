@@ -1733,14 +1733,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 423099745}
-  m_Spawner: {fileID: 484953125}
+  m_Spawner: {fileID: 484953126}
   m_ActivateSpawner: 1
   m_TimeBeforeWave: 4
   m_MobList:
   - {fileID: 7591468653377331356, guid: b05e15a105864bc47ba2977aa7bbba10, type: 3}
   - {fileID: 8084417249067818177, guid: 2a584501d076eee40a22ae12b7a5a4e1, type: 3}
   - {fileID: 2314919286905513727, guid: dbac06b8dc4a28f40aa35062a90d977f, type: 3}
-  m_ItemHolderPrefab: {fileID: 7409175398152514900, guid: e965f85bf3d335d42b29745f6a1fb3bf, type: 3}
+  m_ItemHolderPrefab: {fileID: 5502362523168365014, guid: e965f85bf3d335d42b29745f6a1fb3bf, type: 3}
   m_ItemSpawnPoints:
   - {fileID: 1559162838}
   - {fileID: 2010602407}
@@ -4508,6 +4508,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 382703332}
     m_Modifications:
+    - target: {fileID: 1767699192421836052, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
+      propertyPath: m_Projectile
+      value: 
+      objectReference: {fileID: -2784156413763399887, guid: df383c40895fdfc4a85a8a80ed91bc3a, type: 3}
     - target: {fileID: 1767699192421836052, guid: 97965f0e4237e12408916fbbb39e1be4, type: 3}
       propertyPath: m_PlayerModifierList.Array.size
       value: 0

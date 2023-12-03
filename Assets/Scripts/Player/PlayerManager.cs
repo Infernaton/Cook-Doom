@@ -14,7 +14,7 @@ public class PlayerController : LifeFormManager
     private bool _isShooting = false;
 
     [SerializeField] float m_MoveSpeed;
-    [SerializeField] GameObject m_Projectile;
+    [SerializeField] ProjectileManager m_Projectile;
     [SerializeField] Transform m_SpawnProjectile;
     [SerializeField] float m_ProtectionRadius;
 
@@ -90,13 +90,12 @@ public class PlayerController : LifeFormManager
         {
             //Set the projectile all arround the player when getting a bonus
             float degree = (360 / PlayerModifierMerge.NumberProjectile) * i;
-            GameObject proj = Instantiate(m_Projectile, m_SpawnProjectile.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
+            ProjectileManager proj = Instantiate(m_Projectile, m_SpawnProjectile.position, Quaternion.AngleAxis(degree, transform.up) * transform.rotation);
             proj.transform.SetParent(transform.parent, true);
 
-            ProjectileManager projManager = proj.GetComponent<ProjectileManager>();
-            projManager.Speed = DMath.AddPercentage(m_ProjSpeed, ProjModifierMerge.MovingSpeed);
-            projManager.Damage = DMath.AddPercentage(m_ProjDamage, ProjModifierMerge.Damage);
-            projManager.Piercing = DMath.AddPercentage(m_ProjPiercing, ProjModifierMerge.Piercing);
+            proj.Speed = DMath.AddPercentage(m_ProjSpeed, ProjModifierMerge.MovingSpeed);
+            proj.Damage = DMath.AddPercentage(m_ProjDamage, ProjModifierMerge.Damage);
+            proj.Piercing = DMath.AddPercentage(m_ProjPiercing, ProjModifierMerge.Piercing);
 
             proj.transform.localScale += ProjModifierMerge.Size * proj.transform.localScale / 100;
             if (ProjModifierMerge.NewColor != null) proj.GetComponent<Material>().color = (Color)ProjModifierMerge.NewColor;

@@ -39,11 +39,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] PlayerController m_Player;
 
-    [SerializeField] GameObject m_Spawner;
+    [SerializeField] EnemySpawnerManager m_Spawner;
     [SerializeField] bool m_ActivateSpawner;
     [SerializeField] float m_TimeBeforeWave;
     [SerializeField] List<GameObject> m_MobList;
-    [SerializeField] GameObject m_ItemHolderPrefab;
+    [SerializeField] ItemHolder m_ItemHolderPrefab;
     [SerializeField] Transform[] m_ItemSpawnPoints;
 
     [SerializeField] GameObject m_CanvaEndGame;
@@ -87,9 +87,8 @@ public class GameManager : MonoBehaviour
     }
     public void ActivateSpawner(bool activate = true)
     {
-        EnemySpawnerManager e = m_Spawner.GetComponent<EnemySpawnerManager>();
-        e.enabled = activate;
-        if (activate) e.SetSpawnRate(CurrentWave.SpawnRate);
+        m_Spawner.enabled = activate;
+        if (activate) m_Spawner.SetSpawnRate(CurrentWave.SpawnRate);
     }
 
     public void Update()
@@ -176,7 +175,7 @@ public class GameManager : MonoBehaviour
         print("----------------------");
         for (int i = 0; i < m_ItemSpawnPoints.Length; i++)
         {
-            GameObject itemHolder = Instantiate(m_ItemHolderPrefab, m_ItemSpawnPoints[i], true);
+            ItemHolder itemHolder = Instantiate(m_ItemHolderPrefab, m_ItemSpawnPoints[i], true);
             itemHolder.transform.localPosition = Vector3.zero;
         }
     }

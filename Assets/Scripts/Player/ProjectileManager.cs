@@ -27,7 +27,7 @@ public class ProjectileManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision c)
+    private void OnTriggerEnter(Collider c)
     {
         //Check the layer value binary if the same as the layer mask
         if (1 << c.gameObject.layer == (m_LayerMask.value & 1 << c.gameObject.layer))
