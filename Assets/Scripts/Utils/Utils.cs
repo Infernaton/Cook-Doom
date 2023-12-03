@@ -171,6 +171,7 @@ namespace Utils
                 BlinkAnim(objectRenderers, switchAnim);
                 yield return new WaitForSeconds(0.05f);
             }
+            //To make sure the gameobject stay visible at the end of the animation
             BlinkAnim(objectRenderers, true);
         }
 
