@@ -135,6 +135,7 @@ namespace Utils
         }
         #endregion
 
+        #region Image
         public static IEnumerator FadeIn(float t, Image i)
         {
             i.gameObject.SetActive(true);
@@ -156,6 +157,7 @@ namespace Utils
             }
             i.gameObject.SetActive(false);
         }
+        #endregion
     }
 
     public class DMath
@@ -179,6 +181,16 @@ namespace Utils
             float minutes = Mathf.FloorToInt(time / 60);
             float seconds = Mathf.FloorToInt(time % 60);
             return string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        public static float Square(float value)
+        {
+            return value * value;
+        }
+
+        public static int Square(int value)
+        {
+            return value * value;
         }
     }
 

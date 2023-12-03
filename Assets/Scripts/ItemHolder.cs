@@ -40,7 +40,7 @@ public class ItemHolder : MonoBehaviour
     {
         int r = Random.Range(0, m_BuyableItem.Length - 1);
         Modifier mod = m_BuyableItem[r];
-        print("iterate: " + iteration + " | Random: " + r + " | Reset ? " + !(mod.Rarity - iteration <= 0));
+        //print("iterate: " + iteration + " | Random: " + r + " | Reset ? " + !(mod.Rarity - iteration <= 0));
         return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration+1);
     }
 
@@ -54,7 +54,7 @@ public class ItemHolder : MonoBehaviour
     {
         gm = GameManager.Instance;
         _currentItem = GenHoldingItem();
-        _cost = _currentItem.Rarity * _currentItem.Rarity * ((gm.Player().GetTotalItem() / 10) + 1);
+        _cost = DMath.Square(_currentItem.Rarity) * DMath.Square((gm.Player().GetTotalItem() / 10) + 1);
 
         m_Renderer.material = SelectColor(_currentItem.Rarity);
 
