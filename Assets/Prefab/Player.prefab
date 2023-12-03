@@ -513,7 +513,7 @@ MonoBehaviour:
   m_SpawnProjectile: {fileID: 8827476171404824070}
   m_ProtectionRadius: 8
   m_FireRate: 10
-  m_ProjSpeed: 50
+  m_ProjSpeed: 5
   m_ProjDamage: 1
   m_ProjPiercing: 0
   m_PlayerModifierList: []
