@@ -39,7 +39,6 @@ public class ProjectileManager : MonoBehaviour
             _lastHitObject = c.gameObject;
             EnemyManager enemy = c.gameObject.GetComponent<EnemyManager>();
             enemy.LoseHP(Damage);
-            Debug.Log("Hit: " + _numberOfTargetHit + " | Piercing: " + Piercing);
             if (_numberOfTargetHit >= Piercing)
                 Destroy(gameObject);
         }

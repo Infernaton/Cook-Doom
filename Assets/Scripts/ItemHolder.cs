@@ -40,7 +40,6 @@ public class ItemHolder : MonoBehaviour
     {
         int r = Random.Range(0, m_BuyableItem.Length - 1);
         Modifier mod = m_BuyableItem[r];
-        //print("iterate: " + iteration + " | Random: " + r + " | Reset ? " + !(mod.Rarity - iteration <= 0));
         return mod.Rarity - iteration <= 0 ? mod : GenHoldingItem(iteration+1);
     }
 

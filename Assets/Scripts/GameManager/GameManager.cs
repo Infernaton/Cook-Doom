@@ -172,7 +172,6 @@ public class GameManager : MonoBehaviour
     private void SpawnNewItemHolder()
     {
         KillItemHolder();
-        print("----------------------");
         for (int i = 0; i < m_ItemSpawnPoints.Length; i++)
         {
             ItemHolder itemHolder = Instantiate(m_ItemHolderPrefab, m_ItemSpawnPoints[i], true);
