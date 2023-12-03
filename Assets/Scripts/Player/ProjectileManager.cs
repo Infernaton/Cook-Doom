@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utils;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -8,11 +9,13 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] LayerMask m_LayerMask;
 
     private int _numberOfTargetHit;
+    private GameObject _lastHitObject;
 
     void Start()
     {
         //Maybe Rewrite this to call for Last Direction
-        PlayerController p = FindAnyObjectByType<PlayerController>();
+        //PlayerController p = GameManager.Instance.Player();
+        _lastHitObject = GameManager.Instance.Player().gameObject; // To make _lastHitObject not null
 
         Vector3 force = new Vector3(Speed * transform.forward.x, 0, Speed * transform.forward.z);
         GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
@@ -30,11 +33,13 @@ public class ProjectileManager : MonoBehaviour
         if (1 << c.gameObject.layer == (m_LayerMask.value & 1 << c.gameObject.layer))
             Destroy(gameObject);
 
-        if (c.gameObject.GetComponent<EnemyManager>())
+        if (c.gameObject.GetComponent<EnemyManager>() && !Compare.GameObjects(_lastHitObject, c.gameObject))
         {
             _numberOfTargetHit++;
+            _lastHitObject = c.gameObject;
             EnemyManager enemy = c.gameObject.GetComponent<EnemyManager>();
             enemy.LoseHP(Damage);
+            Debug.Log("Hit: " + _numberOfTargetHit + " | Piercing: " + Piercing);
             if (_numberOfTargetHit >= Piercing)
                 Destroy(gameObject);
         }

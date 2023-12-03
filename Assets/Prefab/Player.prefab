@@ -515,7 +515,7 @@ MonoBehaviour:
   m_FireRate: 10
   m_ProjSpeed: 5
   m_ProjDamage: 1
-  m_ProjPiercing: 0
+  m_ProjPiercing: 1
   m_PlayerModifierList: []
   m_ProjectileModifierList: []
 --- !u!114 &780667866309410433
