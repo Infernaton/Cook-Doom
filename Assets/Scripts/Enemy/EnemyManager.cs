@@ -62,17 +62,9 @@ public class EnemyManager : LifeFormManager
     public void OnDeath()
     {
         m_DeathSound.Play();
-        Destroy(gameObject,0.2f);
+        Destroy(gameObject,0.2f); // Destroy after some time
+        // Don't wait for the sound the finish playing, it sound a little weird in game
+        // Like it dies -> then it disapears... Would be much better if there was an animation with it
         GameManager.Instance.IncrementScore(m_GoldReward);
-    }
-
-    IEnumerator PlaySound()
-    {
-        while (m_DeathSound.isPlaying)
-        {
-            yield return null;
-        }
-
-        Destroy(gameObject);
     }
 }
